@@ -18,6 +18,10 @@ There is an [include.nmml]() file and [ndll]() are compiled for:
 * ios simulator
 * android armv6
 
+Recompiling
+-----------
+For recompiling the native extensions just use the sh files contained in the project folder
+
 Usage
 -----
 
