@@ -106,8 +106,8 @@ Made at Hyperfiction
 --------------------
 [hyperfiction.fr](http://hyperfiction.fr)
 Developed by :
-- Louis Beltramo [@louisbl](https://twitter.com/louisbl)
-- Johann Martinache [@shoe_box](https://twitter.com/shoe_box)
+- [Louis Beltramo](https://github.com/louisbl) [@louisbl](https://twitter.com/louisbl)
+- [Johann Martinache](https://github.com/shoebox) [@shoe_box](https://twitter.com/shoe_box)
 
 License
 -------
