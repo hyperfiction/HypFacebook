@@ -27,7 +27,7 @@ Usage
 
     var fb = new HypFacebook( "<your appid>" );
     fb.addEventListener( HypFacebookEvent.OPENED, _onFbOpened );
-    fb.connect( );
+    fb.connect( true ); // false to disallow login UI
 
     function _onFbOpened( _ ) {
 		fb.call( GRAPH_REQUEST("/me") );
