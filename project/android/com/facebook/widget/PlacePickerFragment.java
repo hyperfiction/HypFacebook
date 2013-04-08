@@ -34,7 +34,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import com.facebook.*;
-import com.facebook.android.R;
+import ::APP_PACKAGE::.R;
 import com.facebook.model.GraphPlace;
 import com.facebook.internal.Logger;
 import com.facebook.internal.Utility;
@@ -109,7 +109,7 @@ public class PlacePickerFragment extends PickerFragment<GraphPlace> {
      *             configuration information for the Fragment.
      */
     public PlacePickerFragment(Bundle args) {
-        super(GraphPlace.class, R.layout.com_facebook_placepickerfragment, args);
+        super(GraphPlace.class, ::APP_PACKAGE::.R.layout.com_facebook_placepickerfragment, args);
         setPlacePickerSettingsFromBundle(args);
     }
 
@@ -244,14 +244,14 @@ public class PlacePickerFragment extends PickerFragment<GraphPlace> {
     @Override
     public void onInflate(Activity activity, AttributeSet attrs, Bundle savedInstanceState) {
         super.onInflate(activity, attrs, savedInstanceState);
-        TypedArray a = activity.obtainStyledAttributes(attrs, R.styleable.com_facebook_place_picker_fragment);
+        TypedArray a = activity.obtainStyledAttributes(attrs, ::APP_PACKAGE::.R.styleable.com_facebook_place_picker_fragment);
 
-        setRadiusInMeters(a.getInt(R.styleable.com_facebook_place_picker_fragment_radius_in_meters, radiusInMeters));
-        setResultsLimit(a.getInt(R.styleable.com_facebook_place_picker_fragment_results_limit, resultsLimit));
-        if (a.hasValue(R.styleable.com_facebook_place_picker_fragment_results_limit)) {
-            setSearchText(a.getString(R.styleable.com_facebook_place_picker_fragment_search_text));
+        setRadiusInMeters(a.getInt(::APP_PACKAGE::.R.styleable.com_facebook_place_picker_fragment_radius_in_meters, radiusInMeters));
+        setResultsLimit(a.getInt(::APP_PACKAGE::.R.styleable.com_facebook_place_picker_fragment_results_limit, resultsLimit));
+        if (a.hasValue(::APP_PACKAGE::.R.styleable.com_facebook_place_picker_fragment_results_limit)) {
+            setSearchText(a.getString(::APP_PACKAGE::.R.styleable.com_facebook_place_picker_fragment_search_text));
         }
-        showSearchBox = a.getBoolean(R.styleable.com_facebook_place_picker_fragment_show_search_box, showSearchBox);
+        showSearchBox = a.getBoolean(::APP_PACKAGE::.R.styleable.com_facebook_place_picker_fragment_show_search_box, showSearchBox);
 
         a.recycle();
     }
@@ -262,7 +262,7 @@ public class PlacePickerFragment extends PickerFragment<GraphPlace> {
 
         ViewGroup view = (ViewGroup) getView();
         if (showSearchBox) {
-            ViewStub stub = (ViewStub) view.findViewById(R.id.com_facebook_placepickerfragment_search_box_stub);
+            ViewStub stub = (ViewStub) view.findViewById(::APP_PACKAGE::.R.id.com_facebook_placepickerfragment_search_box_stub);
             if (stub != null) {
                 searchBox = (EditText) stub.inflate();
 
@@ -270,17 +270,17 @@ public class PlacePickerFragment extends PickerFragment<GraphPlace> {
                 RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
                         RelativeLayout.LayoutParams.FILL_PARENT,
                         RelativeLayout.LayoutParams.FILL_PARENT);
-                layoutParams.addRule(RelativeLayout.BELOW, R.id.search_box);
+                layoutParams.addRule(RelativeLayout.BELOW, ::APP_PACKAGE::.R.id.search_box);
 
-                ListView listView = (ListView) view.findViewById(R.id.com_facebook_picker_list_view);
+                ListView listView = (ListView) view.findViewById(::APP_PACKAGE::.R.id.com_facebook_picker_list_view);
                 listView.setLayoutParams(layoutParams);
 
                 // If we need to, put the search box under the title bar.
-                if (view.findViewById(R.id.com_facebook_picker_title_bar) != null) {
+                if (view.findViewById(::APP_PACKAGE::.R.id.com_facebook_picker_title_bar) != null) {
                     layoutParams = new RelativeLayout.LayoutParams(
                             RelativeLayout.LayoutParams.FILL_PARENT,
                             RelativeLayout.LayoutParams.WRAP_CONTENT);
-                    layoutParams.addRule(RelativeLayout.BELOW, R.id.com_facebook_picker_title_bar);
+                    layoutParams.addRule(RelativeLayout.BELOW, ::APP_PACKAGE::.R.id.com_facebook_picker_title_bar);
 
                     searchBox.setLayoutParams(layoutParams);
                 }
@@ -335,7 +335,7 @@ public class PlacePickerFragment extends PickerFragment<GraphPlace> {
 
     @Override
     String getDefaultTitleText() {
-        return getString(R.string.com_facebook_nearby);
+        return getString(::APP_PACKAGE::.R.string.com_facebook_nearby);
     }
 
     @Override
@@ -349,23 +349,23 @@ public class PlacePickerFragment extends PickerFragment<GraphPlace> {
 
                 String result = null;
                 if (category != null && wereHereCount != null) {
-                    result = getString(R.string.com_facebook_placepicker_subtitle_format, category, wereHereCount);
+                    result = getString(::APP_PACKAGE::.R.string.com_facebook_placepicker_subtitle_format, category, wereHereCount);
                 } else if (category == null && wereHereCount != null) {
-                    result = getString(R.string.com_facebook_placepicker_subtitle_were_here_only_format, wereHereCount);
+                    result = getString(::APP_PACKAGE::.R.string.com_facebook_placepicker_subtitle_were_here_only_format, wereHereCount);
                 } else if (category != null && wereHereCount == null) {
-                    result = getString(R.string.com_facebook_placepicker_subtitle_catetory_only_format, category);
+                    result = getString(::APP_PACKAGE::.R.string.com_facebook_placepicker_subtitle_catetory_only_format, category);
                 }
                 return result;
             }
 
             @Override
             protected int getGraphObjectRowLayoutId(GraphPlace graphObject) {
-                return R.layout.com_facebook_placepickerfragment_list_row;
+                return ::APP_PACKAGE::.R.layout.com_facebook_placepickerfragment_list_row;
             }
 
             @Override
             protected int getDefaultPicture() {
-                return R.drawable.com_facebook_place_default_icon;
+                return ::APP_PACKAGE::.R.drawable.com_facebook_place_default_icon;
             }
 
         };

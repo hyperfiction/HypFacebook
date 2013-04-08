@@ -24,7 +24,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Looper;
-import com.facebook.android.BuildConfig;
+import ::APP_PACKAGE::.BuildConfig;
 import com.facebook.internal.Utility;
 import com.facebook.model.GraphObject;
 import com.facebook.internal.Validate;

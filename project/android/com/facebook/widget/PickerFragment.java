@@ -33,7 +33,7 @@ import android.view.ViewStub;
 import android.view.animation.AlphaAnimation;
 import android.widget.*;
 import com.facebook.*;
-import com.facebook.android.R;
+import ::APP_PACKAGE::.R;
 import com.facebook.model.GraphObject;
 import com.facebook.internal.SessionTracker;
 
@@ -126,20 +126,20 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
     @Override
     public void onInflate(Activity activity, AttributeSet attrs, Bundle savedInstanceState) {
         super.onInflate(activity, attrs, savedInstanceState);
-        TypedArray a = activity.obtainStyledAttributes(attrs, R.styleable.com_facebook_picker_fragment);
+        TypedArray a = activity.obtainStyledAttributes(attrs, ::APP_PACKAGE::.R.styleable.com_facebook_picker_fragment);
 
-        setShowPictures(a.getBoolean(R.styleable.com_facebook_picker_fragment_show_pictures, showPictures));
-        String extraFieldsString = a.getString(R.styleable.com_facebook_picker_fragment_extra_fields);
+        setShowPictures(a.getBoolean(::APP_PACKAGE::.R.styleable.com_facebook_picker_fragment_show_pictures, showPictures));
+        String extraFieldsString = a.getString(::APP_PACKAGE::.R.styleable.com_facebook_picker_fragment_extra_fields);
         if (extraFieldsString != null) {
             String[] strings = extraFieldsString.split(",");
             setExtraFields(Arrays.asList(strings));
         }
 
-        showTitleBar = a.getBoolean(R.styleable.com_facebook_picker_fragment_show_title_bar, showTitleBar);
-        titleText = a.getString(R.styleable.com_facebook_picker_fragment_title_text);
-        doneButtonText = a.getString(R.styleable.com_facebook_picker_fragment_done_button_text);
-        titleBarBackground = a.getDrawable(R.styleable.com_facebook_picker_fragment_title_bar_background);
-        doneButtonBackground = a.getDrawable(R.styleable.com_facebook_picker_fragment_done_button_background);
+        showTitleBar = a.getBoolean(::APP_PACKAGE::.R.styleable.com_facebook_picker_fragment_show_title_bar, showTitleBar);
+        titleText = a.getString(::APP_PACKAGE::.R.styleable.com_facebook_picker_fragment_title_text);
+        doneButtonText = a.getString(::APP_PACKAGE::.R.styleable.com_facebook_picker_fragment_done_button_text);
+        titleBarBackground = a.getDrawable(::APP_PACKAGE::.R.styleable.com_facebook_picker_fragment_title_bar_background);
+        doneButtonBackground = a.getDrawable(::APP_PACKAGE::.R.styleable.com_facebook_picker_fragment_done_button_background);
 
         a.recycle();
     }
@@ -148,7 +148,7 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewGroup view = (ViewGroup) inflater.inflate(layout, container, false);
 
-        listView = (ListView) view.findViewById(R.id.com_facebook_picker_list_view);
+        listView = (ListView) view.findViewById(::APP_PACKAGE::.R.id.com_facebook_picker_list_view);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
@@ -167,7 +167,7 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
         listView.setOnScrollListener(onScrollListener);
         listView.setAdapter(adapter);
 
-        activityCircle = (ProgressBar) view.findViewById(R.id.com_facebook_picker_activity_circle);
+        activityCircle = (ProgressBar) view.findViewById(::APP_PACKAGE::.R.id.com_facebook_picker_activity_circle);
 
         return view;
     }
@@ -526,7 +526,7 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
     }
 
     String getDefaultDoneButtonText() {
-        return getString(R.string.com_facebook_picker_done_button_text);
+        return getString(::APP_PACKAGE::.R.string.com_facebook_picker_done_button_text);
     }
 
     void displayActivityCircle() {
@@ -598,21 +598,21 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
     }
 
     private void inflateTitleBar(ViewGroup view) {
-        ViewStub stub = (ViewStub) view.findViewById(R.id.com_facebook_picker_title_bar_stub);
+        ViewStub stub = (ViewStub) view.findViewById(::APP_PACKAGE::.R.id.com_facebook_picker_title_bar_stub);
         if (stub != null) {
             View titleBar = stub.inflate();
 
             final RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
                     RelativeLayout.LayoutParams.FILL_PARENT,
                     RelativeLayout.LayoutParams.FILL_PARENT);
-            layoutParams.addRule(RelativeLayout.BELOW, R.id.com_facebook_picker_title_bar);
+            layoutParams.addRule(RelativeLayout.BELOW, ::APP_PACKAGE::.R.id.com_facebook_picker_title_bar);
             listView.setLayoutParams(layoutParams);
 
             if (titleBarBackground != null) {
                 titleBar.setBackgroundDrawable(titleBarBackground);
             }
 
-            doneButton = (Button) view.findViewById(R.id.com_facebook_picker_done_button);
+            doneButton = (Button) view.findViewById(::APP_PACKAGE::.R.id.com_facebook_picker_done_button);
             if (doneButton != null) {
                 doneButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -632,7 +632,7 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
                 }
             }
 
-            titleTextView = (TextView) view.findViewById(R.id.com_facebook_picker_title);
+            titleTextView = (TextView) view.findViewById(::APP_PACKAGE::.R.id.com_facebook_picker_title);
             if (titleTextView != null) {
                 if (getTitleText() != null) {
                     titleTextView.setText(getTitleText());

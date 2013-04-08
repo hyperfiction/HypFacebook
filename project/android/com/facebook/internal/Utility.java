@@ -27,7 +27,7 @@ import android.util.Log;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import com.facebook.*;
-import com.facebook.android.BuildConfig;
+import ::APP_PACKAGE::.BuildConfig;
 import com.facebook.model.GraphObject;
 import org.json.JSONArray;
 import org.json.JSONException;
