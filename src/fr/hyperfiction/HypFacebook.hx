@@ -55,17 +55,17 @@ import nme.events.EventDispatcher;
 		 * it uses it, otherwise show the LoginUI with basic perms.
 		 * @return true if the session is opened
 		 */
-		public function connect( ) : Bool {
+		public function connect( allowUI : Bool ) : Bool {
 			trace("connect");
 
 			var bSessionValid = false;
 
 			#if android
-			bSessionValid = jni_connect( _JNI_instance );
+			bSessionValid = jni_connect( _JNI_instance, allowUI );
 			#end
 
 			#if ios
-			bSessionValid = CPP_FB_Connect( _sApp_id );
+			bSessionValid = CPP_FB_Connect( _sApp_id, allowUI );
 			#end
 
 			trace('bSessionValid ::: '+bSessionValid);
@@ -178,7 +178,9 @@ import nme.events.EventDispatcher;
 		public function getSession_permissions( ) : Array<String> {
 
 			#if android
-				return getPermissions( _JNI_instance ).split("&");
+				var perms = getPermissions( _JNI_instance );
+				trace( "perms ::: "+perms );
+				return perms.split("&");
 			#end
 
 			#if ios
@@ -373,7 +375,7 @@ import nme.events.EventDispatcher;
 		* @return	void
 		*/
 		@CPP("HypFacebook")
-		public function CPP_FB_Connect( sAppID : String ) : Bool {
+		public function CPP_FB_Connect( sAppID : , allowUI : Bool ) : Bool {
 
 		}
 
@@ -480,7 +482,7 @@ import nme.events.EventDispatcher;
 		* @return	void
 		*/
 		@JNI("fr.hyperfiction.HypFacebook","connect")
-		public function jni_connect( instance : Dynamic ) : Bool {
+		public function jni_connect( instance : Dynamic, allowUI : Bool ) : Bool {
 
 		}
 
@@ -557,8 +559,8 @@ enum FacebookRequest{
 	GRAPH_REQUEST( sRequest : String , h : Hash<String> , ?bPost : Bool );
 	*/
 
-	DIALOG		( sAction : String , ?params : Hash<String> );
-	FEED_DIALOG	( params : Hash<String> );
+	DIALOG			( sAction : String , ?params : Hash<String> );
+	FEED_DIALOG		( params : Hash<String> );
 	REQUEST_DIALOG	( params : Hash<String> );
 
 	GRAPH_REQUEST( sGraphPath : String , ?params : Hash<String> , ?sMethod : HTTP_METHOD );

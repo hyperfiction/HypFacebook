@@ -14,7 +14,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 namespace Hyperfiction{
 	void init(  );
-	bool connect( const char *token );
+	bool connect( const char *token, bool allow_ui );
 	void disconnect( );
 	void request( const char *sGraphRequest, const char *sParamsName, const char *sParamsVals, const char *sHttpMethod );
 	void dialog( const char *sAction , const char *sParamsName , const char *sParamsVals );

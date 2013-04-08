@@ -109,20 +109,24 @@ public class HypFacebook {
 		* @public
 		* @return	void
 		*/
-		public boolean connect( ){
+		public boolean connect( boolean allowUI ){
 			Session session = Session.getActiveSession();
-			if( session == null )
+			if( session == null ) {
 				session = new Session.Builder( GameActivity.getInstance( ) ).setApplicationId(_sAppID).build();
+			}
+			Session.OpenRequest req = new Session.OpenRequest( GameActivity.getInstance( ) );
+			req.setCallback( new Session.StatusCallback( ){
+			    @Override
+			    public void call(Session session, SessionState state, Exception exception) {
+					onFBEvent( state.toString(), session.getAccessToken( ), "" );
+			    }
+			});
+			if ( SessionState.CREATED_TOKEN_LOADED.equals(session.getState()) || allowUI ) {
 				Session.setActiveSession( session );
-				Session.OpenRequest req = new Session.OpenRequest( GameActivity.getInstance( ) );
-				req.setCallback( new Session.StatusCallback( ){
-				    @Override
-				    public void call(Session session, SessionState state, Exception exception) {
-						onFBEvent( state.toString(), "", "" );
-				    }
-				}  );
-			session.openForRead( req );
-			return ( session.isOpened( ) );
+				session.openForRead( req );
+				return session.isOpened( );
+			}
+			return false;
 		}
 
 		/**
@@ -188,9 +192,9 @@ public class HypFacebook {
 			//Task
 				GameActivity.getInstance( ).runOnUiThread(
 					new Runnable() {
-					    public void run() {
-					       RequestAsyncTask task = new RequestAsyncTask(req);
-									task.execute();
+						public void run() {
+							RequestAsyncTask task = new RequestAsyncTask(req);
+							task.execute( );
 					    }
 					}
 				);

@@ -126,11 +126,11 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		* @public
 		* @return	void
 		*/
-		-(bool) connect:(NSString*)NSappID{
+		-(bool) connect:(NSString*)NSappID withUI:(BOOL)withUI{
 			NSLog(@"connect with id : %@",NSappID);
 			[FBSession setDefaultAppID:NSappID];
 			[FBSession openActiveSessionWithReadPermissions:nil
-				allowLoginUI:YES
+				allowLoginUI:withUI
 				completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
 					[self sessionStateChanged:session state:state error:error];
 				}
@@ -283,7 +283,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		            if (!error) {
 		                // We have a valid session
 		                NSLog(@"User session found");
-		                dispatch_event("OPENED" , "", "");
+		                dispatch_event("OPENED" , [[session accessToken] UTF8String], "");
 		            }
 		            break;
 		        case FBSessionStateClosed:
@@ -307,16 +307,23 @@ namespace Hyperfiction{
 	NSArray* _getArrayFromPipeUTF8String( const char *pipe_string );
 	NSDictionary* _getDictFromStrings( const char *sParamsNAme, const char *sParamsVal );
 
+	bool connectFrom_cache( const char *sAppID ){
+		NSString *NSAppID = [NSString stringWithUTF8String:sAppID ];
+		NSLog(@"connect from cache %@",NSAppID);
+		return [[HypFacebook instance] connect:NSAppID withUI:NO];
+	}
+
 	/**
 	*
 	*
 	* @public
 	* @return	void
 	*/
-	bool connect( const char *sAppID ){
+	bool connect( const char *sAppID, bool allow_ui ){
 		NSString *NSAppID = [NSString stringWithUTF8String:sAppID ];
 		NSLog(@"connect %@",NSAppID);
-		return [[HypFacebook instance] connect:NSAppID];
+		BOOL ui = allow_ui ? YES : NO;
+		return [[HypFacebook instance] connect:NSAppID withUI:ui];
 	}
 
 	/**

@@ -91,7 +91,7 @@ extern "C"{
 																			jstring javaArg1 ,
 																			jstring javaArg2
 																		){
-			ALOG("Java_fr_hyperfiction_HypFacebookFrag_onFBEvent" );
+			ALOG("Java_fr_hyperfiction_HypFacebook_onFBEvent" );
 
 			const char *sEvName	= env->GetStringUTFChars( jsEvName , false );
 			const char *sArg1	= env->GetStringUTFChars( javaArg1 , false );
@@ -144,10 +144,10 @@ extern "C"{
 
 #ifdef IPHONE
 
-	value CPP_FB_Connect( value app_id ){
-		return alloc_bool(connect( val_string( app_id)));
+	value CPP_FB_Connect( value app_id, value allow_ui ){
+		return alloc_bool(connect( val_string( app_id ), val_bool( allow_ui ) ));
 	}
-	DEFINE_PRIM( CPP_FB_Connect , 1 );
+	DEFINE_PRIM( CPP_FB_Connect , 2 );
 
 	value CPP_FB_Disconnect( ){
 		disconnect( );
