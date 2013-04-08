@@ -105,6 +105,9 @@ You can also present any [facebook dialog](https://developers.facebook.com/docs/
 Made at Hyperfiction
 --------------------
 [hyperfiction.fr](http://hyperfiction.fr)
+Developed by :
+- Louis Beltramo [@louisbl](https://twitter.com/louisbl)
+- Johann Martinache [@shoe_box](https://twitter.com/shoe_box)
 
 License
 -------
