@@ -35,6 +35,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.util.Log;
 import android.widget.FrameLayout;
 import android.text.TextUtils;
+import android.opengl.GLSurfaceView;
 
 import fr.hyperfiction.Base64;
 
@@ -77,6 +78,8 @@ public class HypFacebook {
 
 	private static final int REAUTH_ACTIVITY_CODE = 100;
 
+	private static GLSurfaceView _mSurface;
+
 	// -------o constructor
 
 		/**
@@ -88,7 +91,7 @@ public class HypFacebook {
 		public HypFacebook( String sAppID ){
 			trace("constructor ::: "+sAppID);
 			_sAppID = sAppID;
-
+			_mSurface = (GLSurfaceView) GameActivity.getInstance().getCurrentFocus();
 	}
 
 	// -------o public
@@ -117,8 +120,8 @@ public class HypFacebook {
 			Session.OpenRequest req = new Session.OpenRequest( GameActivity.getInstance( ) );
 			req.setCallback( new Session.StatusCallback( ){
 			    @Override
-			    public void call(Session session, SessionState state, Exception exception) {
-					onFBEvent( state.toString(), session.getAccessToken( ), "" );
+			    public void call( final Session session, final SessionState state, final Exception exception) {
+					onFBEventWrapper( state.toString(), session.getAccessToken( ), "" );
 			    }
 			});
 			if ( SessionState.CREATED_TOKEN_LOADED.equals(session.getState()) || allowUI ) {
@@ -337,13 +340,13 @@ public class HypFacebook {
 			public void onComplete(Bundle values, FacebookException error) {
 				trace("onComplete");
 				if( error != null ){
-					onFBEvent( DIALOG_ERROR , error.toString( ) , "" );
+					onFBEventWrapper( DIALOG_ERROR , error.toString( ) , "" );
 				}else{
 					final String postId = values.getString("post_id");
 					if ( postId != null )
-						onFBEvent( DIALOG_SENT , postId , "" );
+						onFBEventWrapper( DIALOG_SENT , postId , "" );
 					else
-						onFBEvent( DIALOG_CANCELED , "" , "" );
+						onFBEventWrapper( DIALOG_CANCELED , "" , "" );
 				}
 			}
 		};
@@ -358,12 +361,21 @@ public class HypFacebook {
 				FacebookRequestError error = response.getError( );
 				if( error != null ){
 					trace( "error : "+error );
-					onFBEvent(GRAPH_REQUEST_ERROR , sGraphPath , error.toString( ) );
+					onFBEventWrapper(GRAPH_REQUEST_ERROR , sGraphPath , error.toString( ) );
 				}else{
-					onFBEvent( GRAPH_REQUEST_RESULTS , sGraphPath , response.getGraphObject( ).getInnerJSONObject().toString() );
+					onFBEventWrapper( GRAPH_REQUEST_RESULTS , sGraphPath , response.getGraphObject( ).getInnerJSONObject().toString() );
 				}
 
 			}
 
 		};
+
+		private void onFBEventWrapper( final String arg0, final String arg1, final String arg2 ) {
+			_mSurface.queueEvent(new Runnable() {
+				@Override
+				public void run() {
+					onFBEvent( arg0, arg1, arg2 );
+				}
+			});
+		}
 }

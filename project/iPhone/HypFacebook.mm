@@ -283,7 +283,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		            if (!error) {
 		                // We have a valid session
 		                NSLog(@"User session found");
-		                dispatch_event("OPENED" , [[session accessToken] UTF8String], "");
+		                dispatch_event("OPENED" , [[[session accessTokenData] accessToken] UTF8String], "");
 		            }
 		            break;
 		        case FBSessionStateClosed:
