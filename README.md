@@ -12,7 +12,7 @@ These are under the [Apache License, Version 2.0](http://www.apache.org/licenses
 
 Installation
 ------------
-There is an [include.nmml]() file and [ndll]() are compiled for:
+There is an [include.nmml](https://github.com/hyperfiction/HypFacebook/blob/master/include.nmml) file and [ndll](https://github.com/hyperfiction/HypFacebook/tree/master/ndll) are compiled for:
 * ios armv6
 * ios armv7
 * ios simulator
@@ -102,9 +102,8 @@ You can also present any [facebook dialog](https://developers.facebook.com/docs/
 
     fb.call( DIALOG( "<dialog name>", <hash of parameters> ) );
 
-Made at Hyperfiction
+Made at [Hyperfiction](http://hyperfiction.fr)
 --------------------
-[hyperfiction.fr](http://hyperfiction.fr)
 Developed by :
 - [Louis Beltramo](https://github.com/louisbl) [@louisbl](https://twitter.com/louisbl)
 - [Johann Martinache](https://github.com/shoebox) [@shoe_box](https://twitter.com/shoe_box)
