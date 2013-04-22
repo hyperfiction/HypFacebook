@@ -18,6 +18,8 @@ There is an [include.nmml](https://github.com/hyperfiction/HypFacebook/blob/mast
 * ios simulator
 * android armv6
 
+For iOS you need to [install the FacebookSDK](https://developers.facebook.com/ios/) to be able to link the FacebookSDK.framework in XCode.
+
 Recompiling
 -----------
 For recompiling the native extensions just use the sh files contained in the project folder

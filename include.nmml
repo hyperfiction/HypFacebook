@@ -7,13 +7,14 @@
 
 		<java path="project/android" if="android"/>
 		<ndll name="HypFacebook" if="android"/>
-
+		<!--
 		<template path="/templates/android/res" rename="res" if="android"/>
+		-->
 		<template path="/templates/android/MainActivity.java" rename="MainActivityFacebook.java" if="android"/>
 		<!--
 		-->
 	<echo value='|----------------------------------------------------------------------------|' if="android"/>
-	<echo value='|                             /!\ [HypFacebook] /!\                             |' if="android"/>
+	<echo value='|                             /!\ [HypFacebook] /!\                          |' if="android"/>
 	<echo value='|----------------------------------------------------------------------------|' if="android"/>
 	<echo value='| Add the LoginActivity to your AndroidManifest.xml                          |' if="android"/>
 	<echo value="|----------------------------------------------------------------------------|" if="android"/>
@@ -30,8 +31,6 @@
 	<!-- ios -->
 
 		<ndll name="HypFacebook" if="ios"/>
-
-		<template path="/templates/iphone/FacebookSDK.framework" rename="FacebookSDK.framework" if="ios"/>
 
 		<section if="ios">
 			<echo value='|----------------------------------------------------------------------------|' if="ios"/>
