@@ -50,10 +50,13 @@
 			<echo value='|         </dict>                                                            |' if="ios"/>
 			<echo value='|     </array>                                                               |' if="ios"/>
 			<echo value="|----------------------------------------------------------------------------|" if="ios"/>
-			<echo value='| Also mind to add the FacebookSDK.framework and FacebookSDK.bundle,         |' if="ios"/>
-			<echo value='| to the framework folder in XCode before building, and check that you       |' if="ios"/>
+			<echo value='| Also mind to add the FacebookSDK.framework and the bundles,                |' if="ios"/>
+			<echo value='| to the framework folder in XCode before building. Check that you           |' if="ios"/>
 			<echo value='| choose "Create groups for any added folders"                               |' if="ios"/>
-			<echo value="| and deselect 'Copy items into destination group's folder (if needed)'      |" if="ios"/>
+			<echo value="| and deselect 'Copy items into destination group's folder (if needed)'.     |" if="ios"/>
+			<echo value="|----------------------------------------------------------------------------|" if="ios"/>
+			<echo value="| If you target ios < 6, toggle Security, Social, Accounts and AdSupport     |" if="ios"/>
+			<echo value="| to optional.                                                               |" if="ios"/>
 			<echo value="|----------------------------------------------------------------------------|" if="ios"/>
 
 			<!--
@@ -72,6 +75,7 @@
 			<dependency name="Accounts.framework" />
 			<dependency name="AdSupport.framework"/>
 			<dependency name="sqlite3"/>
+			<ios linker-flags="-fobjc-arc" />
 		</section>
 
 </project>
