@@ -19,6 +19,7 @@ There is an [include.nmml](https://github.com/hyperfiction/HypFacebook/blob/mast
 * android armv6
 
 For iOS you need to [install the FacebookSDK](https://developers.facebook.com/ios/) to be able to link the FacebookSDK.framework in XCode.
+On iOS when you present a dialog it will always trigger "DIALOG_CANCELED" even if the dialog is successful, because of [this facebook bug](https://developers.facebook.com/bugs/234604753348378).
 
 Recompiling
 -----------

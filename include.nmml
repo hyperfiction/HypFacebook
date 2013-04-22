@@ -36,8 +36,11 @@
 			<echo value='|----------------------------------------------------------------------------|' if="ios"/>
 			<echo value='|                             /!\ [HypFacebook] /!\                          |' if="ios"/>
 			<echo value='|----------------------------------------------------------------------------|' if="ios"/>
-			<echo value='| Add a CFBundleURLTypes key in your app-Info.plist with "fb<appid>" :       |' if="ios"/>
-			<echo value='| <key>CFBundleURLTypes</key>                                                |' if="ios"/>
+			<echo value='| Add a FacebookDisplayName key in your app-Info.plist with your app name:   |' if="ios"/>
+			<echo value='|   <key>FacebookDisplayName</key>                                           |' if="ios"/>
+			<echo value='|   <string>_________</string>                                               |' if="ios"/>
+			<echo value='| Add a CFBundleURLTypes key in your app-Info.plist with "fb<appid>":        |' if="ios"/>
+			<echo value='|   <key>CFBundleURLTypes</key>                                              |' if="ios"/>
 			<echo value='|     <array>                                                                |' if="ios"/>
 			<echo value='|         <dict>                                                             |' if="ios"/>
 			<echo value='|             <key>CFBundleURLSchemes</key>                                  |' if="ios"/>
@@ -47,8 +50,10 @@
 			<echo value='|         </dict>                                                            |' if="ios"/>
 			<echo value='|     </array>                                                               |' if="ios"/>
 			<echo value="|----------------------------------------------------------------------------|" if="ios"/>
-			<echo value='| Also mind to add the FacebookSDk.framework to the framework folder         |' if="ios"/>
-			<echo value='| in XCode before building.                                                  |' if="ios"/>
+			<echo value='| Also mind to add the FacebookSDK.framework and FacebookSDK.bundle,         |' if="ios"/>
+			<echo value='| to the framework folder in XCode before building, and check that you       |' if="ios"/>
+			<echo value='| choose "Create groups for any added folders"                               |' if="ios"/>
+			<echo value="| and deselect 'Copy items into destination group's folder (if needed)'      |" if="ios"/>
 			<echo value="|----------------------------------------------------------------------------|" if="ios"/>
 
 			<!--
@@ -62,6 +67,8 @@
 					</dict>
 				</array>";
 			-->
+			<dependency name="Security.framework" />
+			<dependency name="Social.framework" />
 			<dependency name="Accounts.framework" />
 			<dependency name="AdSupport.framework"/>
 			<dependency name="sqlite3"/>

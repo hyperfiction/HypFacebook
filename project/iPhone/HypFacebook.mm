@@ -12,17 +12,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 #import <UIKit/UIKit.h>
 #include <HypFacebook.h>
 #import <FacebookSDK.h>
-/*
-<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>fb494777337211456</string>
-			</array>
-		</dict>
-	</array>
-*/
 
 //Externs
 	typedef void( *FunctionType)( );
@@ -48,8 +37,9 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 							openURL:(NSURL *)url
 							sourceApplication:(NSString *)sourceApplication
 							annotation:(id)annotation {
-		    // attempt to extract a token from the url
-		    return [FBSession.activeSession handleOpenURL:url];
+			BOOL wasHandled = [FBAppCall handleOpenURL:url
+                             sourceApplication:sourceApplication];
+			return wasHandled;
 		}
 	@end
 
@@ -106,6 +96,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		 * A function for parsing URL parameters.
 		 */
 		- (NSDictionary*)parseURLParams:(NSString *)query {
+			NSLog(@"parseURLparams:%@",query);
 		    NSArray *pairs = [query componentsSeparatedByString:@"&"];
 		    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
 		    for (NSString *pair in pairs) {
@@ -128,7 +119,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		*/
 		-(bool) connect:(NSString*)NSappID withUI:(BOOL)withUI{
 			NSLog(@"connect with id : %@",NSappID);
-			[FBSession setDefaultAppID:NSappID];
+			[FBSettings setDefaultAppID:NSappID];
 			[FBSession openActiveSessionWithReadPermissions:nil
 				allowLoginUI:withUI
 				completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
@@ -195,10 +186,11 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 			        } else {
 			             if (result == FBWebDialogResultDialogNotCompleted) {
 			                 // Case B: User clicked the "x" icon
-			                NSLog(@"User canceled story publishing.");
+			                NSLog(@"User canceled story publishing with x icon.");
 					        dispatch_event("DIALOG_CANCELED" , "", "");
 			             } else {
 			                 // Case C: Dialog shown and the user clicks Cancel or Share
+			                 NSLog(@"resultURL: %@",resultURL);
 			                 NSDictionary *urlParams = [self parseURLParams:[resultURL query]];
 			                 if (![urlParams valueForKey:@"post_id"]) {
 			                     // User clicked the Cancel button

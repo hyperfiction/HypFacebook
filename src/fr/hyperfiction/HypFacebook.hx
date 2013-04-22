@@ -375,7 +375,7 @@ import nme.events.EventDispatcher;
 		* @return	void
 		*/
 		@CPP("HypFacebook")
-		public function CPP_FB_Connect( sAppID : , allowUI : Bool ) : Bool {
+		public function CPP_FB_Connect( sAppID : String, allowUI : Bool ) : Bool {
 
 		}
 
