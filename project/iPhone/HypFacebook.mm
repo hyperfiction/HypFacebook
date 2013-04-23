@@ -16,7 +16,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 //Externs
 	typedef void( *FunctionType)( );
 	extern "C"{
-		void dispatch_event( const char *sType , const char *sArg1 , const char *sArg2 );
+		void hypfb_dispatch_event( const char *sType , const char *sArg1 , const char *sArg2 );
 	}
 
 
@@ -182,12 +182,12 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 					if (error) {
 			             // Case A: Error launching the dialog or publishing story.
 			             NSLog(@"Error ::: %@ publishing story ::: %@",resultURL, error);
-				        dispatch_event("DIALOG_ERROR" , "", "");
+				        hypfb_dispatch_event("DIALOG_ERROR" , "", "");
 			        } else {
 			             if (result == FBWebDialogResultDialogNotCompleted) {
 			                 // Case B: User clicked the "x" icon
 			                NSLog(@"User canceled story publishing with x icon.");
-					        dispatch_event("DIALOG_CANCELED" , "", "");
+					        hypfb_dispatch_event("DIALOG_CANCELED" , "", "");
 			             } else {
 			                 // Case C: Dialog shown and the user clicks Cancel or Share
 			                 NSLog(@"resultURL: %@",resultURL);
@@ -195,12 +195,12 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 			                 if (![urlParams valueForKey:@"post_id"]) {
 			                     // User clicked the Cancel button
 			                     NSLog(@"User canceled story publishing.");
-						        dispatch_event("DIALOG_CANCELED", "", "" );
+						        hypfb_dispatch_event("DIALOG_CANCELED", "", "" );
 			                 } else {
 			                     // User clicked the Share button
 			                     NSString *postID = [urlParams valueForKey:@"post_id"];
 			                     NSLog(@"Posted story, id: %@", postID);
-						        dispatch_event("DIALOG_SENT" , [postID UTF8String], "");
+						        hypfb_dispatch_event("DIALOG_SENT" , [postID UTF8String], "");
 			                 }
 			             }
 			        }
@@ -222,13 +222,13 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 				HTTPMethod:HTTPMethod
 				completionHandler:^(FBRequestConnection *connection, id result, NSError *error){
 					if ( error ) {
-						dispatch_event(
+						hypfb_dispatch_event(
 								"GRAPH_REQUEST_ERROR" ,
 								[(NSString*) NSGraphRequest UTF8String],
 								[[error localizedDescription] UTF8String]
 							);
 					} else {
-						dispatch_event(
+						hypfb_dispatch_event(
 								"GRAPH_REQUEST_RESULTS" ,
 								[(NSString*) NSGraphRequest UTF8String] ,
 								[[NSString stringWithFormat:@"%@", result] UTF8String]
@@ -247,16 +247,16 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		    if (error.fberrorShouldNotifyUser) {
 		        // If the SDK has a message for the user, surface it.
 	            NSLog(@"error with message %@",error.fberrorUserMessage);
-		        dispatch_event("PERMISSION_ERROR" , [error.fberrorUserMessage UTF8String], "");
+		        hypfb_dispatch_event("PERMISSION_ERROR" , [error.fberrorUserMessage UTF8String], "");
 		    } else {
 		        if (error.fberrorCategory == FBErrorCategoryUserCancelled){
 		            // The user has cancelled the request. You can inspect the value and
 		            // inner error for more context. Here we simply ignore it.
 		            NSLog(@"User cancelled post permissions.");
-			        dispatch_event("PERMISSION_ERROR" , "", "");
+			        hypfb_dispatch_event("PERMISSION_ERROR" , "", "");
 		        } else {
 		            NSLog(@"Unexpected error requesting permissions:%@", error);
-			        dispatch_event("PERMISSION_ERROR" , "", "");
+			        hypfb_dispatch_event("PERMISSION_ERROR" , "", "");
 		        }
 		    }
 		}
@@ -275,7 +275,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		            if (!error) {
 		                // We have a valid session
 		                NSLog(@"User session found");
-		                dispatch_event("OPENED" , [[[session accessTokenData] accessToken] UTF8String], "");
+		                hypfb_dispatch_event("OPENED" , [[[session accessTokenData] accessToken] UTF8String], "");
 		            }
 		            break;
 		        case FBSessionStateClosed:
@@ -287,14 +287,14 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		    }
 
 		    if (error) {
-				dispatch_event("ERROR", [error.localizedDescription UTF8String], "" );
+				hypfb_dispatch_event("ERROR", [error.localizedDescription UTF8String], "" );
 		    }
 		}
 
 	@end
 
 //
-namespace Hyperfiction{
+namespace hypfacebook{
 
 	NSArray* _getArrayFromPipeUTF8String( const char *pipe_string );
 	NSDictionary* _getDictFromStrings( const char *sParamsNAme, const char *sParamsVal );

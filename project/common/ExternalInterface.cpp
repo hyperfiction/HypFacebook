@@ -21,7 +21,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 #ifdef ANDROID
 #include <jni.h>
 #endif
-using namespace Hyperfiction;
+using namespace hypfacebook;
 
 #ifdef ANDROID
 	extern JNIEnv *GetEnv();
@@ -55,9 +55,9 @@ extern "C"{
 		return 0;
 	}
 
-	void dispatch_event( const char *sType , const char *sArg1 , const char *sArg2 ){
+	void hypfb_dispatch_event( const char *sType , const char *sArg1 , const char *sArg2 ){
 		#ifdef ANDROID
-		ALOG("dispatch_event" );
+		ALOG("hypfb_dispatch_event" );
 		#endif
 		val_call3(
 					eval_onEvent->get( ) ,
@@ -69,7 +69,7 @@ extern "C"{
 
 	#ifdef IPHONE
 
-		void callback( const char* cbType , const char* data ){
+		void hypfb_callback( const char* cbType , const char* data ){
 			val_call2( eval_onConnect->get( ), alloc_string( cbType ) , alloc_string( data ) );
 		}
 
@@ -97,7 +97,7 @@ extern "C"{
 			const char *sArg1	= env->GetStringUTFChars( javaArg1 , false );
 			const char *sArg2	= env->GetStringUTFChars( javaArg2 , false );
 
-			dispatch_event( sEvName , sArg1 , sArg2 );
+			hypfb_dispatch_event( sEvName , sArg1 , sArg2 );
 
 			env->ReleaseStringUTFChars( jsEvName	, sEvName );
 			env->ReleaseStringUTFChars( javaArg1 	, sArg1 );
@@ -118,7 +118,7 @@ extern "C"{
 			const char *sArg1	= env->GetStringUTFChars( javaArg1 , false );
 			const char *sArg2	= env->GetStringUTFChars( javaArg2 , false );
 
-			dispatch_event( sEvName , sArg1 , sArg2 );
+			hypfb_dispatch_event( sEvName , sArg1 , sArg2 );
 
 			env->ReleaseStringUTFChars( jsEvName	, sEvName );
 			env->ReleaseStringUTFChars( javaArg1 	, sArg1 );

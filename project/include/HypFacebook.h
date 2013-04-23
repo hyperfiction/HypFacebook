@@ -12,7 +12,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 #ifndef Device
 #define Device
 
-namespace Hyperfiction{
+namespace hypfacebook {
 	void init(  );
 	bool connect( const char *token, bool allow_ui );
 	void disconnect( );
