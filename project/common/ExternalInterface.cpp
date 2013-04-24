@@ -93,9 +93,9 @@ extern "C"{
 																		){
 			ALOG("Java_fr_hyperfiction_HypFacebook_onFBEvent" );
 
-			const char *sEvName	= env->GetStringUTFChars( jsEvName , false );
-			const char *sArg1	= env->GetStringUTFChars( javaArg1 , false );
-			const char *sArg2	= env->GetStringUTFChars( javaArg2 , false );
+			const char *sEvName	= env->GetStringUTFChars( jsEvName , 0 );
+			const char *sArg1  	= env->GetStringUTFChars( javaArg1 , 0 );
+			const char *sArg2  	= env->GetStringUTFChars( javaArg2 , 0 );
 
 			hypfb_dispatch_event( sEvName , sArg1 , sArg2 );
 
@@ -114,9 +114,9 @@ extern "C"{
 																		){
 			ALOG("Java_fr_hyperfiction_HypFacebookFrag_onFBEvent" );
 
-			const char *sEvName	= env->GetStringUTFChars( jsEvName , false );
-			const char *sArg1	= env->GetStringUTFChars( javaArg1 , false );
-			const char *sArg2	= env->GetStringUTFChars( javaArg2 , false );
+			const char *sEvName	= env->GetStringUTFChars( jsEvName , 0 );
+			const char *sArg1  	= env->GetStringUTFChars( javaArg1 , 0 );
+			const char *sArg2  	= env->GetStringUTFChars( javaArg2 , 0 );
 
 			hypfb_dispatch_event( sEvName , sArg1 , sArg2 );
 

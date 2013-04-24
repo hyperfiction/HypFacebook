@@ -113,14 +113,16 @@ public class HypFacebook {
 		* @return	void
 		*/
 		public boolean connect( boolean allowUI ){
-			Session session = Session.getActiveSession();
-			if( session == null ) {
-				session = new Session.Builder( GameActivity.getInstance( ) ).setApplicationId(_sAppID).build();
-			}
+			Session session;
+			session = new Session.Builder( GameActivity.getInstance( ) ).setApplicationId(_sAppID).build();
 			Session.OpenRequest req = new Session.OpenRequest( GameActivity.getInstance( ) );
 			req.setCallback( new Session.StatusCallback( ){
 			    @Override
 			    public void call( final Session session, final SessionState state, final Exception exception) {
+					if( state.equals( SessionState.CLOSED_LOGIN_FAILED )
+						|| state.equals( SessionState.CLOSED ) ) {
+						session.closeAndClearTokenInformation();
+					}
 					onFBEventWrapper( state.toString(), session.getAccessToken( ), "" );
 			    }
 			});

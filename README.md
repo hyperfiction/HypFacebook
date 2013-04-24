@@ -61,11 +61,21 @@ Android
 -------
 Add the LoginActivity to your AndroidManifest.xml
 
-Copy the res content from the extension in the templates/android/res
-folder and merge files if you have several native extensions.
+```xml
+<activity   android:name="com.facebook.LoginActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:label="::APP_TITLE::" />
+````
 
+Copy the res folder from the extension in the templates/android/
+folder. Merge files if you have several native extensions and update your project.nmml:
+
+```xml
+<template path="templates/android/res" rename="res"/>
+
+```
 Copy the MainActivity.java to the java src folder with your package name
-Example with the template tag in the nmml file :
+Example with the template tag in the nmml file:
 
 ```xml
 <template path="Export/android/bin/MainActivityFacebook.java"
