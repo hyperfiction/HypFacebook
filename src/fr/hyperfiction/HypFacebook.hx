@@ -192,6 +192,20 @@ import nme.events.EventDispatcher;
 			return new Array<String>( );
 		}
 
+		#if android
+
+		/**
+		*
+		*
+		* @public
+		* @return	void
+		*/
+		@JNI("fr.hyperfiction.HypFacebook","trace_hash")
+		static public function traceHash( ) : Void {
+
+		}
+
+		#end
 
 	// -------o protected
 
