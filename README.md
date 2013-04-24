@@ -82,16 +82,17 @@ Usage
 -----
 
 ```haxe
-function connectToFacebook( ) : Void {
-    var fb = new HypFacebook( "<your appid>" );
-    fb.addEventListener( HypFacebookEvent.OPENED, _onFbOpened );
-    fb.connect( true ); // false to disallow login UI
+class TestFb {
+    function connectToFacebook( ) : Void {
+        var fb = new HypFacebook( "<your appid>" );
+        fb.addEventListener( HypFacebookEvent.OPENED, _onFbOpened );
+        fb.connect( true ); // false to disallow login UI
 
-    function _onFbOpened( _ ) {
-        fb.call( GRAPH_REQUEST("/me") );
+        function _onFbOpened( _ ) {
+            fb.call( GRAPH_REQUEST("/me") );
+        }
     }
 }
-
 ```
 The allowUI parameter of the connect function allow to present the login page if there is no cached/active token. You should call connect( false ) first to check if there is an active token. If not, then present a login button to the user that call connect( true ).
 
@@ -145,48 +146,49 @@ When you make a graph request, you get the raw String result from Facebook in a 
 Quick reference
 ---------------
 
-Present a request dialog:
 
 ```haxe
-function requestDialog( ) : Void {
-    var h = new Hash<String>( );
-    h.set( "message" , "Test Request");
-    h.set( "to" , "<fb user id>");
-    fb.call( REQUEST_DIALOG( h ) );
+class TestFb {
+
+    // Present a request dialog
+    function requestDialog( ) : Void {
+        var h = new Hash<String>( );
+        h.set( "message" , "Test Request");
+        h.set( "to" , "<fb user id>");
+        fb.call( REQUEST_DIALOG( h ) );
+    }
+
+    // Present a feed dialog
+    function feedDialog( ) : Void {
+        var h = new Hash<String>( );
+        h.set("name","Facebook extension for NME");
+        h.set("caption","Build great social apps and get more installs with Haxe/NME.");
+        h.set("description","The Facebook extension for NME makes it easier and faster to develop Facebook integrated apps build with Haxe");
+        h.set("link","http://www.nme.io");
+        h.set("picture","https://raw.github.com/fbsamples/ios-3.x-howtos/master/Images/iossdk_logo.png");
+        fb.call( FEED_DIALOG( h ) );
+    }
+
+    // Make a request to the Facebook Graph API
+    function graphApi( ) : Void {
+        var h = new Hash<String>( );
+        h.set( "score", "42" );
+        fb.call( GRAPH_REQUEST("/<fb user id>/scores", h ,POST) );
+    }
+
 }
-
 ```
-Present a feed dialog:
 
-```haxe
-function feedDialog( ) : Void {
-    var h = new Hash<String>( );
-    h.set("name","Facebook extension for NME");
-    h.set("caption","Build great social apps and get more installs with Haxe/NME.");
-    h.set("description","The Facebook extension for NME makes it easier and faster to develop Facebook integrated apps build with Haxe");
-    h.set("link","http://www.nme.io");
-    h.set("picture","https://raw.github.com/fbsamples/ios-3.x-howtos/master/Images/iossdk_logo.png");
-    fb.call( FEED_DIALOG( h ) );
-}
-
-```
-Make a request to the Facebook Graph API:
-
-```haxe
-function graphApi( ) : Void {
-    var h = new Hash<String>( );
-    h.set( "score", "42" );
-    fb.call( GRAPH_REQUEST("/<fb user id>/scores", h ,POST) );
-}
-
-```
 You can also present any [facebook dialog](https://developers.facebook.com/docs/reference/dialogs/) with:
 
 ```haxe
-functino anyDialog( ) : Void {
-    fb.call( DIALOG( "<dialog name>", <hash of parameters> ) );
-}
+class TestFb {
 
+    function anyDialog( ) : Void {
+        fb.call( DIALOG( "<dialog name>", <hash of parameters> ) );
+    }
+
+}
 ```
 Made at [Hyperfiction](http://hyperfiction.fr)
 --------------------
