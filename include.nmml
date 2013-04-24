@@ -7,19 +7,18 @@
 
 		<java path="project/android" if="android"/>
 		<ndll name="HypFacebook" if="android"/>
-		<!--
-		<template path="/templates/android/res" rename="res" if="android"/>
-		-->
 		<template path="/templates/android/MainActivity.java" rename="MainActivityFacebook.java" if="android"/>
-		<!--
-		-->
+
 	<echo value='|----------------------------------------------------------------------------|' if="android"/>
 	<echo value='|                             /!\ [HypFacebook] /!\                          |' if="android"/>
 	<echo value='|----------------------------------------------------------------------------|' if="android"/>
 	<echo value='| Add the LoginActivity to your AndroidManifest.xml                          |' if="android"/>
 	<echo value="|----------------------------------------------------------------------------|" if="android"/>
+	<echo value='| Copy the res content from the extension in the templates/android/res       |' if="android"/>
+	<echo value='| folder and merge files if you have several native extensions.              |' if="android"/>
+	<echo value="|----------------------------------------------------------------------------|" if="android"/>
 	<echo value='| Copy the MainActivity.java to the java src folder with your package name   |' if="android"/>
-	<echo value='| Ex with the template tag in the nmml file :                                |' if="android"/>
+	<echo value='| Example with the template tag in the nmml file :                           |' if="android"/>
 	<echo value='| <template path="Export/android/bin/MainActivityFacebook.java"              |' if="android"/>
 	<echo value='|    rename="src/my/package/name/MainActivity.java"/>                        |' if="android"/>
 	<echo value="|----------------------------------------------------------------------------|" if="android"/>

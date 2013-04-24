@@ -51,8 +51,10 @@ import nme.events.EventDispatcher;
 	// -------o public
 
 		/**
-		 * connect to facebook. If there's a cached token,
-		 * it uses it, otherwise show the LoginUI with basic perms.
+		 * connect to facebook.
+		 * @param allowUI: set to true to show the login page with basic perms
+		 * if there is no active/cached token.
+		 * You should set allowUI to true only after a user action.
 		 * @return true if the session is opened
 		 */
 		public function connect( allowUI : Bool ) : Bool {
