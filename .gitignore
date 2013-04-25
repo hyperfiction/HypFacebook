@@ -6,6 +6,5 @@
 *.sublime-project
 *.sublime-workspace
 *.hxproj
-*.sh
 obj
 all_objs

@@ -53,7 +53,7 @@ choose "Create groups for any added folders"
 and deselect 'Copy items into destination group's folder (if needed)'.
 
 If you target ios < 6, toggle Security, Social, Accounts and AdSupport
-to optional.
+to optional. Also check in the Build Settings -> Other Linker Flags that you have -fobjc-arc.
 
 On iOS when you present a dialog it will always trigger "DIALOG_CANCELED" even if the dialog is successful, because of [this facebook bug](https://developers.facebook.com/bugs/234604753348378).
 

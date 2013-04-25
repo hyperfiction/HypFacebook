@@ -51,7 +51,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 				removeObserver:self	name:UIApplicationWillTerminateNotification object:nil];
 			[[NSNotificationCenter defaultCenter]
 				removeObserver:self	name:UIApplicationDidBecomeActiveNotification object:nil];
-			[super dealloc];
 		}
 
 		+ (HypFacebook *)instance{

@@ -27,7 +27,6 @@
 	<template path="/templates/android/libs/android-support-v4.jar" rename="libs/android-support-v4.jar" if="android"/>
 
 
-
 	<!-- ios -->
 
 		<ndll name="HypFacebook" if="ios"/>
@@ -59,23 +58,13 @@
 			<echo value="| to optional.                                                               |" if="ios"/>
 			<echo value="|----------------------------------------------------------------------------|" if="ios"/>
 
-			<!--
-			<echo value="<key>CFBundleURLTypes</key>
-				<array>
-					<dict>
-						<key>CFBundleURLSchemes</key>
-						<array>
-							<string>fb210849718975311</string>
-						</array>
-					</dict>
-				</array>";
-			-->
+			<ios linker-flags="-fobjc-arc" />
+
 			<dependency name="Security.framework" />
 			<dependency name="Social.framework" />
 			<dependency name="Accounts.framework" />
 			<dependency name="AdSupport.framework"/>
 			<dependency name="sqlite3"/>
-			<ios linker-flags="-fobjc-arc" />
 		</section>
 
 </project>
