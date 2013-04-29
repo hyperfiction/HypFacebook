@@ -58,7 +58,7 @@
 			<echo value="| to optional.                                                               |" if="ios"/>
 			<echo value="|----------------------------------------------------------------------------|" if="ios"/>
 
-			<ios linker-flags="-fobjc-arc" />
+			<ios linker-flags="-fobjc-arc -ObjC" />
 
 			<dependency name="Security.framework" />
 			<dependency name="Social.framework" />

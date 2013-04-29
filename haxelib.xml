@@ -1,9 +1,0 @@
-<project name="HypFacebook" url="https://github.com/shoebox/HypFacebook" license="MIT">
-<user name="shoebox"/>
-<tag v="facebook"/>
-<tag v="ios"/>
-<tag v="android"/>
-<tag v="nme"/>
-<description>HypFacebook SDK for HaxeNME ( iOS & Android only )</description>
-<version name="1.0"></version>
-</project>
