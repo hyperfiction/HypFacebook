@@ -27,7 +27,6 @@
 	<template path="/templates/android/libs/android-support-v4.jar" rename="libs/android-support-v4.jar" if="android"/>
 
 
-
 	<!-- ios -->
 
 		<ndll name="HypFacebook" if="ios"/>
@@ -55,27 +54,19 @@
 			<echo value='| choose "Create groups for any added folders"                               |' if="ios"/>
 			<echo value="| and deselect 'Copy items into destination group's folder (if needed)'.     |" if="ios"/>
 			<echo value="|----------------------------------------------------------------------------|" if="ios"/>
+			<echo value="| Check Other Linker Flags that you have -fobjc-arc and -ObjC                |" if="ios"/>
+			<echo value="|----------------------------------------------------------------------------|" if="ios"/>
 			<echo value="| If you target ios < 6, toggle Security, Social, Accounts and AdSupport     |" if="ios"/>
 			<echo value="| to optional.                                                               |" if="ios"/>
 			<echo value="|----------------------------------------------------------------------------|" if="ios"/>
 
-			<!--
-			<echo value="<key>CFBundleURLTypes</key>
-				<array>
-					<dict>
-						<key>CFBundleURLSchemes</key>
-						<array>
-							<string>fb210849718975311</string>
-						</array>
-					</dict>
-				</array>";
-			-->
+			<ios linker-flags="-fobjc-arc -ObjC" />
+
 			<dependency name="Security.framework" />
 			<dependency name="Social.framework" />
 			<dependency name="Accounts.framework" />
 			<dependency name="AdSupport.framework"/>
 			<dependency name="sqlite3"/>
-			<ios linker-flags="-fobjc-arc" />
 		</section>
 
 </project>

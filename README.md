@@ -5,7 +5,7 @@ A Facebook native extension for NME
 
 This NME native extension allows you to integrate Facebook into your NME application.
 
-It integrates the [Facebook iOS SDK 3.2.1](https://github.com/facebook/facebook-ios-sdk)
+It integrates the [Facebook iOS SDK 3.5.1](https://github.com/facebook/facebook-ios-sdk)
 and the [Facebook Android SDK 3.0.1](https://github.com/facebook/facebook-android-sdk)
 
 These are under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html)
@@ -52,10 +52,10 @@ to the framework folder in XCode before building. Check that you
 choose "Create groups for any added folders"
 and deselect 'Copy items into destination group's folder (if needed)'.
 
-If you target ios < 6, toggle Security, Social, Accounts and AdSupport
-to optional.
+Check in the Build Settings -> Other Linker Flags that you have -fobjc-arc and -ObjC. If there is more than one "<ios linker-flags="" />", only the last one works.
 
-On iOS when you present a dialog it will always trigger "DIALOG_CANCELED" even if the dialog is successful, because of [this facebook bug](https://developers.facebook.com/bugs/234604753348378).
+If you target ios < 6 (iOS > 5.0 is supported), toggle Security, Social, Accounts and AdSupport frameworks
+to optional.
 
 Android
 -------

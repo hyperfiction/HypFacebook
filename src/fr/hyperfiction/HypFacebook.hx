@@ -186,7 +186,9 @@ import nme.events.EventDispatcher;
 			#end
 
 			#if ios
-				return CPP_FB_get_permissions( ).split( "|" );
+				var perms = CPP_FB_get_permissions( );
+				trace( "perms ::: "+perms );
+				return perms.split( "|" );
 			#end
 
 			return new Array<String>( );

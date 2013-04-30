@@ -51,7 +51,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 				removeObserver:self	name:UIApplicationWillTerminateNotification object:nil];
 			[[NSNotificationCenter defaultCenter]
 				removeObserver:self	name:UIApplicationDidBecomeActiveNotification object:nil];
-			[super dealloc];
 		}
 
 		+ (HypFacebook *)instance{
@@ -300,7 +299,7 @@ namespace hypfacebook{
 	NSDictionary* _getDictFromStrings( const char *sParamsNAme, const char *sParamsVal );
 
 	bool connectFrom_cache( const char *sAppID ){
-		NSString *NSAppID = [NSString stringWithUTF8String:sAppID ];
+		NSString *NSAppID = [ [NSString alloc] initWithUTF8String:sAppID ];
 		NSLog(@"connect from cache %@",NSAppID);
 		return [[HypFacebook instance] connect:NSAppID withUI:NO];
 	}
@@ -312,7 +311,7 @@ namespace hypfacebook{
 	* @return	void
 	*/
 	bool connect( const char *sAppID, bool allow_ui ){
-		NSString *NSAppID = [NSString stringWithUTF8String:sAppID ];
+		NSString *NSAppID = [ [NSString alloc] initWithUTF8String:sAppID ];
 		NSLog(@"connect %@",NSAppID);
 		BOOL ui = allow_ui ? YES : NO;
 		return [[HypFacebook instance] connect:NSAppID withUI:ui];
@@ -335,15 +334,15 @@ namespace hypfacebook{
 	* @return	void
 	*/
 	void request( const char *sGraphRequest, const char *sParamsName, const char *sParamsVal, const char *sHttpMethod ){
-		NSString *NSReq = [NSString stringWithUTF8String:sGraphRequest];
+		NSString *NSReq = [ [NSString alloc] initWithUTF8String:sGraphRequest];
 		[[HypFacebook instance]
 			fbRequest:NSReq
-			HTTPMethod:[NSString stringWithUTF8String:sHttpMethod]
+			HTTPMethod:[ [NSString alloc] initWithUTF8String:sHttpMethod]
 			parameters:_getDictFromStrings( sParamsName, sParamsVal )];
 	}
 
 	void dialog( const char *sDialog, const char *sParamsName , const char *sParamsVal ) {
-		[[HypFacebook instance] presentDialog:[NSString stringWithUTF8String:sDialog]
+		[[HypFacebook instance] presentDialog:[ [NSString alloc] initWithUTF8String:sDialog]
 								withParameters:_getDictFromStrings(sParamsName, sParamsVal)];
 	}
 
@@ -356,11 +355,12 @@ namespace hypfacebook{
 	}
 
 	const char* getPermissions( ){
-		return [[[FBSession.activeSession permissions] componentsJoinedByString:@"|"] UTF8String];
+		NSString *perms = [[FBSession.activeSession permissions] componentsJoinedByString:@"|"];
+		return [perms UTF8String];
 	}
 
 	NSArray* _getArrayFromPipeUTF8String( const char *pipe_string ) {
-		NSString *ns_pipe_string = [NSString stringWithUTF8String:pipe_string];
+		NSString *ns_pipe_string = [ [NSString alloc] initWithUTF8String:pipe_string];
 		return [ns_pipe_string componentsSeparatedByString:@"|"];
 	}
 

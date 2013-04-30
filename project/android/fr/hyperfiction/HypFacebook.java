@@ -194,15 +194,13 @@ public class HypFacebook {
 			Bundle params = stringTo_bundle( sKeys , sVals );
 
 			final Request req	 = new Request( Session.getActiveSession( ) , sGraphRequest , params , HttpMethod.valueOf( sMethod ) , listener_request );
-			//Task
-				GameActivity.getInstance( ).runOnUiThread(
-					new Runnable() {
-						public void run() {
-							RequestAsyncTask task = new RequestAsyncTask(req);
-							task.execute( );
-					    }
-					}
-				);
+			_mSurface.queueEvent(new Runnable() {
+				@Override
+				public void run() {
+					trace( "sync request...");
+					req.executeAndWait();
+				}
+			});
 		}
 
 		/**
