@@ -54,6 +54,8 @@
 			<echo value='| choose "Create groups for any added folders"                               |' if="ios"/>
 			<echo value="| and deselect 'Copy items into destination group's folder (if needed)'.     |" if="ios"/>
 			<echo value="|----------------------------------------------------------------------------|" if="ios"/>
+			<echo value="| Check Other Linker Flags that you have -fobjc-arc and -ObjC                |" if="ios"/>
+			<echo value="|----------------------------------------------------------------------------|" if="ios"/>
 			<echo value="| If you target ios < 6, toggle Security, Social, Accounts and AdSupport     |" if="ios"/>
 			<echo value="| to optional.                                                               |" if="ios"/>
 			<echo value="|----------------------------------------------------------------------------|" if="ios"/>
