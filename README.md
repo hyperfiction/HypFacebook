@@ -52,10 +52,18 @@ to the framework folder in XCode before building. Check that you
 choose "Create groups for any added folders"
 and deselect 'Copy items into destination group's folder (if needed)'.
 
-Check in the Build Settings -> Other Linker Flags that you have -fobjc-arc and -ObjC. If there is more than one "<ios linker-flags="" />", only the last one works.
+If you target ios < 6 (iOS > 5.0 is supported), toggle this framework to optional:
+- Security
+- Social
+- Accounts
+- AdSupport
 
-If you target ios < 6 (iOS > 5.0 is supported), toggle Security, Social, Accounts and AdSupport frameworks
-to optional.
+Check in the Build Settings -> Other Linker Flags that you have 
+```
+-fobjc-arc
+-ObjC
+```
+_If there is more than one "ios linker-flags" in the nmml files, only the last one works_
 
 Android
 -------
