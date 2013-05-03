@@ -119,7 +119,12 @@ public class HypFacebook {
 			}
 			Session.OpenRequest req = _createOpenRequest( session );
 			if ( SessionState.CREATED_TOKEN_LOADED.equals(session.getState()) || ( allowUI && !SessionState.OPENING.equals(session.getState()) ) ) {
-				session.openForRead( req );
+				try{
+					session.openForRead( req );
+				} catch( Exception e) {
+					trace( "Exception in openForRead");
+					e.printStackTrace();
+				}
 				return session.isOpened( );
 			} else {
 				return false;
@@ -135,7 +140,12 @@ public class HypFacebook {
 			req.setPermissions( _createPermissionsFromString( sPerms ) );
 			if ( SessionState.CREATED_TOKEN_LOADED.equals(session.getState()) || allowUI ) {
 				Session.setActiveSession( session );
-				session.openForPublish( req );
+				try{
+					session.openForPublish( req );
+				} catch( Exception e) {
+					trace( "Exception in openForPublish");
+					e.printStackTrace();
+				}
 				return session.isOpened( );
 			} else {
 				return false;
@@ -151,7 +161,12 @@ public class HypFacebook {
 			req.setPermissions( _createPermissionsFromString( sPerms ) );
 			if ( SessionState.CREATED_TOKEN_LOADED.equals(session.getState()) || allowUI ) {
 				Session.setActiveSession( session );
-				session.openForRead( req );
+				try{
+					session.openForRead( req );
+				} catch( Exception e) {
+					trace( "Exception in openForRead");
+					e.printStackTrace();
+				}
 				return session.isOpened( );
 			} else {
 				return false;
@@ -263,7 +278,12 @@ public class HypFacebook {
 			if( req != null ) {
 				Session session = Session.getActiveSession( );
 				if (session != null) {
-					session.requestNewPublishPermissions( req );
+					try{
+						session.requestNewPublishPermissions( req );
+					} catch( Exception e ) {
+						trace( "Exception in requestNewPublishPermissions");
+						e.printStackTrace( );
+					}
 				}
 			}
 		}
@@ -279,7 +299,12 @@ public class HypFacebook {
 			if( req != null ) {
 				Session session = Session.getActiveSession( );
 				if (session != null) {
-					session.requestNewReadPermissions( req );
+					try{
+						session.requestNewReadPermissions( req );
+					} catch( Exception e ) {
+						trace( "Exception in requestNewReadPermissions");
+						e.printStackTrace( );
+					}
 				}
 			}
 		}
