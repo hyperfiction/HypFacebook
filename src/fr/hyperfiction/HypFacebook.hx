@@ -74,6 +74,40 @@ import nme.events.EventDispatcher;
 			return bSessionValid;
 		}
 
+		public function connectForRead( allowUI : Bool, permissions : Array<String> ) : Bool {
+			trace("connect for read");
+
+			var bSessionValid = false;
+
+			#if android
+			bSessionValid = jni_connect_for_read( _JNI_instance, allowUI, permissions.join("&") );
+			#end
+
+			#if ios
+			// bSessionValid = CPP_FB_ConnectFor_read( _sApp_id, allowUI, permissions.join("|") );
+			#end
+
+			trace('bSessionValid ::: '+bSessionValid);
+			return bSessionValid;
+		}
+
+		public function connectForPublish( allowUI : Bool, permissions : Array<String> ) : Bool {
+			trace("connect for publish");
+
+			var bSessionValid = false;
+
+			#if android
+			bSessionValid = jni_connect_for_publish( _JNI_instance, allowUI, permissions.join("&") );
+			#end
+
+			#if ios
+			bSessionValid = CPP_FB_ConnectFor_publish( _sApp_id, allowUI, permissions.join("|") );
+			#end
+
+			trace('bSessionValid ::: '+bSessionValid);
+			return bSessionValid;
+		}
+
 		/**
 		 * logout from facebook. Clear the cached token.
 		 * @return Void
@@ -397,6 +431,16 @@ import nme.events.EventDispatcher;
 
 		}
 
+		@CPP("HypFacebook")
+		public function CPP_FB_ConnectFor_publish( sAppID : String, allowUI : Bool, permissions : String ) : Bool {
+
+		}
+
+		@CPP("HypFacebook")
+		public function CPP_FB_ConnectFor_read( sAppID : String, allowUI : Bool, permissions : String ) : Bool {
+
+		}
+
 		/**
 		*
 		*
@@ -501,6 +545,16 @@ import nme.events.EventDispatcher;
 		*/
 		@JNI("fr.hyperfiction.HypFacebook","connect")
 		public function jni_connect( instance : Dynamic, allowUI : Bool ) : Bool {
+
+		}
+
+		@JNI("fr.hyperfiction.HypFacebook","connectForPublish")
+		public function jni_connect_for_publish( instance : Dynamic, allowUI : Bool, permissions : String ) : Bool {
+
+		}
+
+		@JNI("fr.hyperfiction.HypFacebook","connectForRead")
+		public function jni_connect_for_read( instance : Dynamic, allowUI : Bool, permissions : String ) : Bool {
 
 		}
 
