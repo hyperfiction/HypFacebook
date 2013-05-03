@@ -114,6 +114,7 @@ public class HypFacebook {
 		*/
 		public boolean connect( boolean allowUI ){
 			Session session = _createSession( );
+			trace( "Session state: "+session.getState( ) );
 			if ( session.isOpened( ) ) {
 				return true;
 			}
@@ -139,7 +140,6 @@ public class HypFacebook {
 			Session.OpenRequest req = _createOpenRequest( session );
 			req.setPermissions( _createPermissionsFromString( sPerms ) );
 			if ( SessionState.CREATED_TOKEN_LOADED.equals(session.getState()) || allowUI ) {
-				Session.setActiveSession( session );
 				try{
 					session.openForPublish( req );
 				} catch( Exception e) {
@@ -160,7 +160,6 @@ public class HypFacebook {
 			Session.OpenRequest req = _createOpenRequest( session );
 			req.setPermissions( _createPermissionsFromString( sPerms ) );
 			if ( SessionState.CREATED_TOKEN_LOADED.equals(session.getState()) || allowUI ) {
-				Session.setActiveSession( session );
 				try{
 					session.openForRead( req );
 				} catch( Exception e) {
@@ -213,9 +212,14 @@ public class HypFacebook {
 				GameActivity.getInstance( ).runOnUiThread(
 					new Runnable( ) {
 						public void run() {
-							WebDialog dialog = new WebDialog.Builder( GameActivity.getInstance( ), Session.getActiveSession(), sAction, params ).build( );
-							dialog.setOnCompleteListener( listener_dialog );
-							dialog.show( );
+							try {
+								WebDialog dialog = new WebDialog.Builder( GameActivity.getInstance( ), Session.getActiveSession(), sAction, params ).build( );
+								dialog.setOnCompleteListener( listener_dialog );
+								dialog.show( );
+							} catch( Exception e ) {
+								trace( "Exception in request dialog" );
+								e.printStackTrace( );
+							}
 						}
 					}
 				);
@@ -328,12 +332,13 @@ public class HypFacebook {
 	// -------o protected
 
 		private Session _createSession( ) {
-			Session session;
-			if ( Session.getActiveSession( ) != null ) {
+			Session session = Session.getActiveSession( );
+			if ( session != null && !SessionState.CLOSED.equals(session.getState( ) ) ) {
 				session = Session.getActiveSession( );
 			} else {
 				session = new Session.Builder( GameActivity.getInstance( ) ).setApplicationId(_sAppID).build();
 				Session.setActiveSession( session );
+				trace( "new session created..." );
 			}
 			return session;
 		}
