@@ -114,9 +114,11 @@ public class HypFacebook {
 		*/
 		public boolean connect( boolean allowUI ){
 			Session session = _createSession( );
+			if ( session.isOpened( ) ) {
+				return true;
+			}
 			Session.OpenRequest req = _createOpenRequest( session );
-			if ( SessionState.CREATED_TOKEN_LOADED.equals(session.getState()) || allowUI ) {
-				Session.setActiveSession( session );
+			if ( SessionState.CREATED_TOKEN_LOADED.equals(session.getState()) || ( allowUI && !SessionState.OPENING.equals(session.getState()) ) ) {
 				session.openForRead( req );
 				return session.isOpened( );
 			} else {
@@ -126,6 +128,9 @@ public class HypFacebook {
 
 		public boolean connectForPublish( boolean allowUI, String sPerms )  {
 			Session session = _createSession( );
+			if ( session.isOpened( ) ) {
+				return true;
+			}
 			Session.OpenRequest req = _createOpenRequest( session );
 			req.setPermissions( _createPermissionsFromString( sPerms ) );
 			if ( SessionState.CREATED_TOKEN_LOADED.equals(session.getState()) || allowUI ) {
@@ -139,6 +144,9 @@ public class HypFacebook {
 
 		public boolean connectForRead( boolean allowUI, String sPerms ) {
 			Session session = _createSession( );
+			if ( session.isOpened( ) ) {
+				return true;
+			}
 			Session.OpenRequest req = _createOpenRequest( session );
 			req.setPermissions( _createPermissionsFromString( sPerms ) );
 			if ( SessionState.CREATED_TOKEN_LOADED.equals(session.getState()) || allowUI ) {
@@ -300,6 +308,7 @@ public class HypFacebook {
 				session = Session.getActiveSession( );
 			} else {
 				session = new Session.Builder( GameActivity.getInstance( ) ).setApplicationId(_sAppID).build();
+				Session.setActiveSession( session );
 			}
 			return session;
 		}
