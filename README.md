@@ -176,6 +176,13 @@ class TestFb {
         fb.connectForRead( true, ["user_about_me"] );
     }
 
+    // USE ONLY IF YOU KNOW WHAT YOU ARE DOING: see [this](http://stackoverflow.com/questions/15840893/facebook-android-sdk-session-openforpublish-not-creating-a-new-session)
+    // Open a session with additional PUBLISH permissions
+    function openWithPublish( ) : Void {
+        fb.connectForPublish( true, ["publish_actions"] );
+    }
+
+
     // Present a request dialog
     function requestDialog( ) : Void {
         var h = new Hash<String>( );
