@@ -7,15 +7,11 @@
 
 		<java path="project/android" if="android"/>
 		<ndll name="HypFacebook" if="android"/>
-		<template path="/templates/android/MainActivity.java" rename="MainActivityFacebook.java" if="android"/>
 
 	<echo value='|----------------------------------------------------------------------------|' if="android"/>
 	<echo value='|                             /!\ [HypFacebook] /!\                          |' if="android"/>
 	<echo value='|----------------------------------------------------------------------------|' if="android"/>
 	<echo value='| Add the LoginActivity to your AndroidManifest.xml                          |' if="android"/>
-	<echo value="|----------------------------------------------------------------------------|" if="android"/>
-	<echo value='| Copy the res content from the extension in the templates/android/res       |' if="android"/>
-	<echo value='| folder and merge files if you have several native extensions.              |' if="android"/>
 	<echo value="|----------------------------------------------------------------------------|" if="android"/>
 	<echo value='| Copy the MainActivity.java to the java src folder with your package name.  |' if="android"/>
 	<echo value='| Merge if needed with other extensions.                                     |' if="android"/>
@@ -24,7 +20,9 @@
 	<echo value='|    rename="src/my/package/name/MainActivity.java"/>                        |' if="android"/>
 	<echo value="|----------------------------------------------------------------------------|" if="android"/>
 
+	<template path="/templates/android/MainActivity.java" rename="MainActivityFacebook.java" if="android"/>
 	<template path="/templates/android/libs/android-support-v4.jar" rename="libs/android-support-v4.jar" if="android"/>
+	<template path="/templates/android/res" rename="res" if="android"/>
 
 
 	<!-- ios -->

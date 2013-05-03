@@ -149,6 +149,16 @@ extern "C"{
 	}
 	DEFINE_PRIM( CPP_FB_Connect , 2 );
 
+	value CPP_FB_ConnectFor_publish( value app_id, value allow_ui, value permissions ){
+		return alloc_bool(connectFor_publish( val_string( app_id ), val_bool( allow_ui ), val_string( permissions ) ));
+	}
+	DEFINE_PRIM( CPP_FB_ConnectFor_publish , 3 );
+
+	value CPP_FB_ConnectFor_read( value app_id, value allow_ui, value permissions ){
+		return alloc_bool(connectFor_read( val_string( app_id ), val_bool( allow_ui ), val_string( permissions ) ));
+	}
+	DEFINE_PRIM( CPP_FB_ConnectFor_read , 3 );
+
 	value CPP_FB_Disconnect( ){
 		disconnect( );
 		return alloc_null( );

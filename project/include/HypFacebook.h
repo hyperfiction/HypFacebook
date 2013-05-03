@@ -15,6 +15,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 namespace hypfacebook {
 	void init(  );
 	bool connect( const char *token, bool allow_ui );
+	bool connectFor_read( const char *token, bool allow_ui, const char *permissions );
+	bool connectFor_publish( const char *token, bool allow_ui, const char *permissions );
 	void disconnect( );
 	void request( const char *sGraphRequest, const char *sParamsName, const char *sParamsVals, const char *sHttpMethod );
 	void dialog( const char *sAction , const char *sParamsName , const char *sParamsVals );

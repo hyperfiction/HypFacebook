@@ -95,10 +95,21 @@ Usage
 class TestFb {
     function connectToFacebook( ) : Void {
         var fb = new HypFacebook( "<your appid>" );
-        fb.addEventListener( HypFacebookEvent.OPENED, _onFbOpened );
-        fb.connect( true ); // false to disallow login UI
+        var session_is_valid = fb.connect( false ); // false to disallow login UI
+
+        if( session_is_valid ) {
+            _doFacebookStuff( );
+        } else {
+            fb.addEventListener( HypFacebookEvent.OPENED, _onFbOpened );
+            fb.connect( true ); // true to disallow login UI
+        }
 
         function _onFbOpened( _ ) {
+            fb.removeEventListener( HypFacebookEvent.OPENED, _onFbOpened );
+            _doFacebookStuff( );
+        }
+
+        function _doFacebookStuff( ) {
             fb.call( GRAPH_REQUEST("/me") );
         }
     }
@@ -160,6 +171,17 @@ Quick reference
 ```haxe
 class TestFb {
 
+    // Open a session with additional READ permissions
+    function openWithRead( ) : Void {
+        fb.connectForRead( true, ["user_about_me"] );
+    }
+
+    // USE ONLY IF YOU KNOW WHAT YOU ARE DOING: see [this](http://stackoverflow.com/questions/15840893/facebook-android-sdk-session-openforpublish-not-creating-a-new-session)
+    // Open a session with additional PUBLISH permissions
+    function openWithPublish( ) : Void {
+        fb.connectForPublish( true, ["publish_actions"] );
+    }
+
     // Present a request dialog
     function requestDialog( ) : Void {
         var h = new Hash<String>( );
@@ -184,6 +206,11 @@ class TestFb {
         var h = new Hash<String>( );
         h.set( "score", "42" );
         fb.call( GRAPH_REQUEST("/<fb user id>/scores", h ,POST) );
+    }
+
+    // Close the Facebook session
+    function closeSession( ) : Void {
+        fb.logout( );
     }
 
 }
