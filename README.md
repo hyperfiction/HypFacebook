@@ -182,7 +182,6 @@ class TestFb {
         fb.connectForPublish( true, ["publish_actions"] );
     }
 
-
     // Present a request dialog
     function requestDialog( ) : Void {
         var h = new Hash<String>( );
@@ -207,6 +206,11 @@ class TestFb {
         var h = new Hash<String>( );
         h.set( "score", "42" );
         fb.call( GRAPH_REQUEST("/<fb user id>/scores", h ,POST) );
+    }
+
+    // Close the Facebook session
+    function closeSession( ) : Void {
+        fb.logout( );
     }
 
 }
