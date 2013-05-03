@@ -117,9 +117,34 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		* @return	void
 		*/
 		-(bool) connect:(NSString*)NSappID withUI:(BOOL)withUI{
-			NSLog(@"connect with id : %@",NSappID);
+			NSLog(@"connect with id: %@",NSappID);
 			[FBSettings setDefaultAppID:NSappID];
 			[FBSession openActiveSessionWithReadPermissions:nil
+				allowLoginUI:withUI
+				completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
+					[self sessionStateChanged:session state:state error:error];
+				}
+			];
+			return [FBSession.activeSession isOpen];
+		}
+
+		-(bool) connectForRead:(NSString*)NSappID withUI:(BOOL)withUI withReadPerms:(NSArray *)NSAPerms {
+			NSLog(@"connect with id: %@, with perms: %@",NSappID,NSAPerms);
+			[FBSettings setDefaultAppID:NSappID];
+			[FBSession openActiveSessionWithReadPermissions:NSAPerms
+				allowLoginUI:withUI
+				completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
+					[self sessionStateChanged:session state:state error:error];
+				}
+			];
+			return [FBSession.activeSession isOpen];
+		}
+
+		-(bool) connectForPublish:(NSString*)NSappID withUI:(BOOL)withUI withPublishPerms:(NSArray *)NSAPerms {
+			NSLog(@"connect with id: %@, with perms: %@",NSappID,NSAPerms);
+			[FBSettings setDefaultAppID:NSappID];
+			[FBSession openActiveSessionWithPublishPermissions:NSAPerms
+				defaultAudience:FBSessionDefaultAudienceFriends
 				allowLoginUI:withUI
 				completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
 					[self sessionStateChanged:session state:state error:error];
@@ -315,6 +340,28 @@ namespace hypfacebook{
 		NSLog(@"connect %@",NSAppID);
 		BOOL ui = allow_ui ? YES : NO;
 		return [[HypFacebook instance] connect:NSAppID withUI:ui];
+	}
+
+	bool connectFor_read( const char *sAppID, bool allow_ui, const char *sPerms ) {
+		NSString *NSAppID = [ [NSString alloc] initWithUTF8String:sAppID ];
+		NSLog(@"connect %@",NSAppID);
+		BOOL ui = allow_ui ? YES : NO;
+		return [[HypFacebook instance]
+					connectForRead:NSAppID
+					withUI:ui
+					withReadPerms:_getArrayFromPipeUTF8String( sPerms)
+					];
+	}
+
+	bool connectFor_publish( const char *sAppID, bool allow_ui, const char *sPerms ) {
+		NSString *NSAppID = [ [NSString alloc] initWithUTF8String:sAppID ];
+		NSLog(@"connect %@",NSAppID);
+		BOOL ui = allow_ui ? YES : NO;
+		return [[HypFacebook instance]
+					connectForPublish:NSAppID
+					withUI:ui
+					withPublishPerms:_getArrayFromPipeUTF8String( sPerms )
+					];
 	}
 
 	/**

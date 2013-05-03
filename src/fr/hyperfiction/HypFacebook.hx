@@ -84,7 +84,7 @@ import nme.events.EventDispatcher;
 			#end
 
 			#if ios
-			// bSessionValid = CPP_FB_ConnectFor_read( _sApp_id, allowUI, permissions.join("|") );
+			bSessionValid = CPP_FB_ConnectFor_read( _sApp_id, allowUI, permissions.join("|") );
 			#end
 
 			trace('bSessionValid ::: '+bSessionValid);
@@ -311,6 +311,7 @@ import nme.events.EventDispatcher;
 
 				case HypFacebookEvent.OPENED_TOKEN_UPDATED:
 					ev = new HypFacebookEvent( sEventType );
+					ev.sFacebook_token = sArg1;
 
 				case DIALOG_CANCELED:
 					ev = _dispatch_dialog_event( sEventType , sArg2 , sArg1 );

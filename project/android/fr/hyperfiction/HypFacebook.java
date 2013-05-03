@@ -296,7 +296,11 @@ public class HypFacebook {
 
 		private Session _createSession( ) {
 			Session session;
-			session = new Session.Builder( GameActivity.getInstance( ) ).setApplicationId(_sAppID).build();
+			if ( Session.getActiveSession( ) != null ) {
+				session = Session.getActiveSession( );
+			} else {
+				session = new Session.Builder( GameActivity.getInstance( ) ).setApplicationId(_sAppID).build();
+			}
 			return session;
 		}
 

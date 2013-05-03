@@ -95,10 +95,21 @@ Usage
 class TestFb {
     function connectToFacebook( ) : Void {
         var fb = new HypFacebook( "<your appid>" );
-        fb.addEventListener( HypFacebookEvent.OPENED, _onFbOpened );
-        fb.connect( true ); // false to disallow login UI
+        var session_is_valid = fb.connect( false ); // false to disallow login UI
+
+        if( session_is_valid ) {
+            _doFacebookStuff( );
+        } else {
+            fb.addEventListener( HypFacebookEvent.OPENED, _onFbOpened );
+            fb.connect( true ); // true to disallow login UI
+        }
 
         function _onFbOpened( _ ) {
+            fb.removeEventListener( HypFacebookEvent.OPENED, _onFbOpened );
+            _doFacebookStuff( );
+        }
+
+        function _doFacebookStuff( ) {
             fb.call( GRAPH_REQUEST("/me") );
         }
     }
@@ -159,6 +170,11 @@ Quick reference
 
 ```haxe
 class TestFb {
+
+    // Open a session with additional READ permissions
+    function openWithRead( ) : Void {
+        fb.connectForRead( true, ["user_about_me"] );
+    }
 
     // Present a request dialog
     function requestDialog( ) : Void {
