@@ -333,7 +333,8 @@ public class HypFacebook {
 
 		private Session _createSession( ) {
 			Session session = Session.getActiveSession( );
-			if ( session != null && !SessionState.CLOSED.equals(session.getState( ) ) ) {
+			if ( session != null && !SessionState.CLOSED.equals(session.getState( ) )
+				&& !SessionState.CLOSED_LOGIN_FAILED.equals(session.getState( ) ) ) {
 				session = Session.getActiveSession( );
 			} else {
 				session = new Session.Builder( GameActivity.getInstance( ) ).setApplicationId(_sAppID).build();
