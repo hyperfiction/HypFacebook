@@ -109,7 +109,7 @@ class TestFb {
             _doFacebookStuff( );
         } else {
             fb.addEventListener( HypFacebookEvent.OPENED, _onFbOpened );
-            fb.connect( true ); // true to disallow login UI
+            fb.connect( true ); // true to allow login UI
         }
 
         function _onFbOpened( _ ) {
