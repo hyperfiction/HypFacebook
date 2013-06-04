@@ -21,7 +21,10 @@ public class MainActivity extends org.haxe.nme.GameActivity {
 	protected void onActivityResult( int requestCode , int resultCode , Intent data ) {
 		Log.w("trace", "onActivityResult...");
         super.onActivityResult(requestCode, resultCode, data);
-        Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
+        Session session = Session.getActiveSession( );
+        if( session != null ) {
+			session.onActivityResult(this, requestCode, resultCode, data);
+        }
      }
 
 }
