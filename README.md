@@ -14,6 +14,8 @@ Installation
 ------------
 See [Android setup](https://github.com/hyperfiction/HypFacebook/wiki/Android-setup) on the wiki.
 
+__Be careful when testing your app. For some user having the Facebook app installed prevents them to test their app with sandbox mode on.__
+
 There is an [include.nmml](https://github.com/hyperfiction/HypFacebook/blob/master/include.nmml) file and [ndll](https://github.com/hyperfiction/HypFacebook/tree/master/ndll) are compiled for:
 * ios armv6
 * ios armv7
