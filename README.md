@@ -75,11 +75,12 @@ Add the LoginActivity to your AndroidManifest.xml
             android:label="::APP_TITLE::" />
 ````
 
-Copy the MainActivity.java to the java src folder with your package name
+Copy the MainActivity.java to the java src folder with your package name.
+
 Example with the template tag in the nmml file:
 
 ```xml
-<template path="Export/android/bin/MainActivityFacebook.java"
+<template path="../HypFacebook/templates/android/MainActivity.java"
    rename="src/my/package/name/MainActivity.java"/>
 
 ```
