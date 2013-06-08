@@ -95,6 +95,7 @@ Usage
 
 ```haxe
 class TestFb {
+    
     function connectToFacebook( ) : Void {
         var fb = new HypFacebook( "<your appid>" );
         var session_is_valid = fb.connect( false ); // false to disallow login UI
@@ -105,16 +106,17 @@ class TestFb {
             fb.addEventListener( HypFacebookEvent.OPENED, _onFbOpened );
             fb.connect( true ); // true to allow login UI
         }
-
-        function _onFbOpened( _ ) {
-            fb.removeEventListener( HypFacebookEvent.OPENED, _onFbOpened );
-            _doFacebookStuff( );
-        }
-
-        function _doFacebookStuff( ) {
-            fb.call( GRAPH_REQUEST("/me") );
-        }
     }
+    
+    function _onFbOpened( _ ) {
+        fb.removeEventListener( HypFacebookEvent.OPENED, _onFbOpened );
+        _doFacebookStuff( );
+    }
+
+    function _doFacebookStuff( ) {
+        fb.call( GRAPH_REQUEST("/me") );
+    }
+
 }
 ```
 The allowUI parameter of the connect function allow to present the login page if there is no cached/active token. You should call connect( false ) first to check if there is an active token. If not, then present a login button to the user that call connect( true ).
