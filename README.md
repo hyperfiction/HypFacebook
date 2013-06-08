@@ -67,6 +67,9 @@ _If there is more than one "ios linker-flags" in the nmml files, only the last o
 
 Android
 -------
+
+See [Android setup](https://github.com/hyperfiction/HypFacebook/wiki/Android-setup) on the wiki.
+
 Add the LoginActivity to your AndroidManifest.xml
 
 ```xml
@@ -94,29 +97,44 @@ Usage
 -----
 
 ```haxe
-class TestFb {
-    
-    function connectToFacebook( ) : Void {
-        var fb = new HypFacebook( "<your appid>" );
-        var session_is_valid = fb.connect( false ); // false to disallow login UI
+import nme.display.Sprite;
+import fr.hyperfiction.HypFacebook;
 
-        if( session_is_valid ) {
-            _doFacebookStuff( );
-        } else {
-            fb.addEventListener( HypFacebookEvent.OPENED, _onFbOpened );
-            fb.connect( true ); // true to allow login UI
+class Main extends Sprite {
+	
+	var fb  : HypFacebook;
+	
+	public function new () {
+		super ();
+		connectToFacebook( );
+	}
+	
+	function connectToFacebook( ) : Void {
+        	fb = new HypFacebook( "your_app_id" );
+        	var session_is_valid = fb.connect( false ); // false to disallow login UI
+
+	        if( session_is_valid ) {
+	            _doFacebookStuff( );
+	        } else {
+	            fb.addEventListener( HypFacebookEvent.OPENED, _onFbOpened );
+	            fb.connect( true ); // true to allow login UI
+	        }
+    	}
+
+	function _onFbOpened( _ ) {
+        	fb.removeEventListener( HypFacebookEvent.OPENED, _onFbOpened );
+        	_doFacebookStuff( );
         }
-    }
-    
-    function _onFbOpened( _ ) {
-        fb.removeEventListener( HypFacebookEvent.OPENED, _onFbOpened );
-        _doFacebookStuff( );
-    }
 
-    function _doFacebookStuff( ) {
-        fb.call( GRAPH_REQUEST("/me") );
-    }
+	function _doFacebookStuff( ) {
+        	fb.addEventListener( HypFacebookRequestEvent.GRAPH_REQUEST_RESULTS, _onGraphResults );
+        	fb.call( GRAPH_REQUEST("/me") );
+        }
 
+	function _onGraphResults( event : HypFacebookRequestEvent ) : Void {
+		trace( 'sResult:'+event.sResult );
+	}
+	
 }
 ```
 The allowUI parameter of the connect function allow to present the login page if there is no cached/active token. You should call connect( false ) first to check if there is an active token. If not, then present a login button to the user that call connect( true ).
