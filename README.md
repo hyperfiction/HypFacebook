@@ -12,13 +12,13 @@ These are under the [Apache License, Version 2.0](http://www.apache.org/licenses
 
 Installation
 ------------
+See [Android setup](https://github.com/hyperfiction/HypFacebook/wiki/Android-setup) on the wiki.
 
 There is an [include.nmml](https://github.com/hyperfiction/HypFacebook/blob/master/include.nmml) file and [ndll](https://github.com/hyperfiction/HypFacebook/tree/master/ndll) are compiled for:
 * ios armv6
 * ios armv7
 * ios simulator
 * android armv6
-
 
 iOS
 ---
@@ -67,9 +67,6 @@ _If there is more than one "ios linker-flags" in the nmml files, only the last o
 
 Android
 -------
-
-See [Android setup](https://github.com/hyperfiction/HypFacebook/wiki/Android-setup) on the wiki.
-
 Add the LoginActivity to your AndroidManifest.xml
 
 ```xml
@@ -90,12 +87,10 @@ Example with the template tag in the nmml file:
 
 Recompiling
 -----------
-
 For recompiling the native extensions just use the sh files contained in the project folder
 
 Usage
 -----
-
 ```haxe
 import nme.display.Sprite;
 import fr.hyperfiction.HypFacebook;
@@ -188,8 +183,6 @@ When you make a graph request, you get the raw String result from Facebook in a 
 ```
 Quick reference
 ---------------
-
-
 ```haxe
 class TestFb {
 
