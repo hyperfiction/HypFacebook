@@ -237,13 +237,15 @@ public class HypFacebook {
 			Bundle params = stringTo_bundle( sKeys , sVals );
 
 			final Request req	 = new Request( Session.getActiveSession( ) , sGraphRequest , params , HttpMethod.valueOf( sMethod ) , listener_request );
-			_mSurface.queueEvent(new Runnable() {
-				@Override
-				public void run() {
-					trace( "sync request...");
-					req.executeAndWait();
+			GameActivity.getInstance( ).runOnUiThread(
+				new Runnable() {
+					@Override
+					public void run() {
+						trace( "sync request...");
+						req.executeAndWait();
+					}
 				}
-			});
+			);
 		}
 
 		/**
