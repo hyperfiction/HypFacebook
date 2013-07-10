@@ -1529,6 +1529,7 @@ public class Session implements Serializable {
         private String validateSameFbidAsToken;
 
         AuthorizationRequest(final Activity activity) {
+
             startActivityDelegate = new StartActivityDelegate() {
                 @Override
                 public void startActivityForResult(Intent intent, int requestCode) {

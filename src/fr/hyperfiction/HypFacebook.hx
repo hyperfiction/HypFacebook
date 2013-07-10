@@ -18,7 +18,7 @@ import nme.events.EventDispatcher;
  * ...
  * @author shoe[box]
  */
-@:build(org.shoebox.utils.NativeMirror.build( )) class HypFacebook extends EventDispatcher{
+@:build( ShortCuts.mirrors( ) ) class HypFacebook extends EventDispatcher{
 
 	private var _sApp_id : String;
 
@@ -157,7 +157,7 @@ import nme.events.EventDispatcher;
 		 * @param  ?bPost   : true if its a POST request. GET otherwise
 		 * @return Void
 		 */
-		public function graph_request( sRequest : String , ?h : Hash<String> , ?sMethod : HTTP_METHOD ) : Void {
+		public function graph_request( sRequest : String , ?h : Map<String,String> , ?sMethod : HTTP_METHOD ) : Void {
 
 			if( sMethod == null ) {
 				sMethod = GET;
@@ -251,7 +251,7 @@ import nme.events.EventDispatcher;
 		* @private
 		* @return	void
 		*/
-		private function _dialog( sAction : String , params : Hash<String> ) : Void{
+		private function _dialog( sAction : String , params : Map<String,String> ) : Void{
 			trace("_dialog ::: "+sAction+" - "+params );
 
 			#if android
@@ -277,7 +277,7 @@ import nme.events.EventDispatcher;
 				HypFB_set_event_callback( _onEvent );
 
 				#if debug
-				trace_hash( );
+				traceHash( );
 				#end
 
 				_JNI_instance = create( _sApp_id );
@@ -386,7 +386,7 @@ import nme.events.EventDispatcher;
 		* @private
 		* @return	void
 		*/
-		inline private function _serializeHash( h : Hash<String> , bKey : Bool = true ) : String{
+		inline private function _serializeHash( h : Map<String,String> , bKey : Bool = true ) : String{
 
 			var sRes = "";
 			if( h != null ) {
@@ -533,17 +533,6 @@ import nme.events.EventDispatcher;
 		* @public
 		* @return	void
 		*/
-		@JNI
-		static public function trace_hash( ) : Void {
-
-		}
-
-		/**
-		*
-		*
-		* @public
-		* @return	void
-		*/
 		@JNI("fr.hyperfiction.HypFacebook","connect")
 		public function jni_connect( instance : Dynamic, allowUI : Bool ) : Bool {
 
@@ -625,18 +614,18 @@ import nme.events.EventDispatcher;
 
 enum FacebookRequest{
 	/*
-	DIALOG( h : Hash<String> , sAction : String );
-	FEED_DIALOG( h : Hash<String> );
-	REQUEST_DIALOG( h : Hash<String> );
+	DIALOG( h : Map<String,String> , sAction : String );
+	FEED_DIALOG( h : Map<String,String> );
+	REQUEST_DIALOG( h : Map<String,String> );
 
-	GRAPH_REQUEST( sRequest : String , h : Hash<String> , ?bPost : Bool );
+	GRAPH_REQUEST( sRequest : String , h : Map<String,String> , ?bPost : Bool );
 	*/
 
-	DIALOG			( sAction : String , ?params : Hash<String> );
-	FEED_DIALOG		( params : Hash<String> );
-	REQUEST_DIALOG	( params : Hash<String> );
+	DIALOG			( sAction : String , ?params : Map<String,String> );
+	FEED_DIALOG		( params : Map<String,String> );
+	REQUEST_DIALOG	( params : Map<String,String> );
 
-	GRAPH_REQUEST( sGraphPath : String , ?params : Hash<String> , ?sMethod : HTTP_METHOD );
+	GRAPH_REQUEST( sGraphPath : String , ?params : Map<String,String> , ?sMethod : HTTP_METHOD );
 }
 
 enum HTTP_METHOD {
