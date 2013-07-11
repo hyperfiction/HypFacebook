@@ -1,0 +1,14 @@
+{
+  "name": "hypfacebook",
+  "url" : "https://github.com/hyperfiction/hypfacebook",
+  "license": "BSD",
+  "tags": ["hyperfiction", "facebook", "cpp", "cross", "openfl"],
+  "description": "An OpenFL native extension for Facebook, compatible with iOS and Android.",
+  "version": "2.0.0",
+  "releasenote": "Haxe3 and OpenFl compatibility",
+  "contributors": ["shoe[box]","louisbl"],
+  "dependencies": {
+    "inthebox-macros": "",
+    "openfl": ""
+  }
+}
