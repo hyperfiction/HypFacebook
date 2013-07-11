@@ -95,7 +95,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		 * A function for parsing URL parameters.
 		 */
 		- (NSDictionary*)parseURLParams:(NSString *)query {
-			NSLog(@"parseURLparams:%@",query);
 		    NSArray *pairs = [query componentsSeparatedByString:@"&"];
 		    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
 		    for (NSString *pair in pairs) {
@@ -204,30 +203,33 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 							handler:
 				^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
 					if (error) {
-			             // Case A: Error launching the dialog or publishing story.
-			             NSLog(@"Error ::: %@ publishing story ::: %@",resultURL, error);
-				        hypfb_dispatch_event("DIALOG_ERROR" , "", "");
-			        } else {
-			             if (result == FBWebDialogResultDialogNotCompleted) {
-			                 // Case B: User clicked the "x" icon
-			                NSLog(@"User canceled story publishing with x icon.");
-					        hypfb_dispatch_event("DIALOG_CANCELED" , "", "");
-			             } else {
-			                 // Case C: Dialog shown and the user clicks Cancel or Share
-			                 NSLog(@"resultURL: %@",resultURL);
-			                 NSDictionary *urlParams = [self parseURLParams:[resultURL query]];
-			                 if (![urlParams valueForKey:@"post_id"]) {
-			                     // User clicked the Cancel button
-			                     NSLog(@"User canceled story publishing.");
-						        hypfb_dispatch_event("DIALOG_CANCELED", "", "" );
-			                 } else {
-			                     // User clicked the Share button
-			                     NSString *postID = [urlParams valueForKey:@"post_id"];
-			                     NSLog(@"Posted story, id: %@", postID);
-						        hypfb_dispatch_event("DIALOG_SENT" , [postID UTF8String], "");
-			                 }
-			             }
-			        }
+						// Error launching the dialog or publishing story.
+						NSLog(@"Error ::: %@ publishing story ::: %@",resultURL, error);
+						hypfb_dispatch_event("DIALOG_ERROR" , "", "");
+					} else {
+						if (result == FBWebDialogResultDialogNotCompleted) {
+							// User canceled
+							NSLog(@"User canceled story publishing with x icon.");
+							hypfb_dispatch_event("DIALOG_CANCELED" , "", "");
+						} else {
+							NSLog(@"resultURL: %@",resultURL);
+							NSDictionary *urlParams = [self parseURLParams:[resultURL query]];
+							if ([urlParams valueForKey:@"post_id"]) {
+								// User clicked the Share button
+								NSString *postID = [urlParams valueForKey:@"post_id"];
+								NSLog(@"Posted story, id: %@", postID);
+								hypfb_dispatch_event("DIALOG_SENT" , [postID UTF8String], "");
+							} else if ([urlParams valueForKey:@"request"]) {
+								// User clicked the Send button
+								NSString *requestID = [urlParams valueForKey:@"request"];
+								NSLog(@"Request sent, id: %@", requestID);
+								hypfb_dispatch_event("DIALOG_SENT" , [requestID UTF8String], "");
+							} else {
+								// User clicked the Cancel button
+								hypfb_dispatch_event("DIALOG_CANCELED", "", "" );
+							}
+						}
+					}
 			} ];
 		}
 

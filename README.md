@@ -12,13 +12,15 @@ These are under the [Apache License, Version 2.0](http://www.apache.org/licenses
 
 Installation
 ------------
+See [Android setup](https://github.com/hyperfiction/HypFacebook/wiki/Android-setup) on the wiki.
+
+__Be careful when testing your app. For some user having the Facebook app installed prevents them to test their app with sandbox mode on.__
 
 There is an [include.nmml](https://github.com/hyperfiction/HypFacebook/blob/master/include.nmml) file and [ndll](https://github.com/hyperfiction/HypFacebook/tree/master/ndll) are compiled for:
 * ios armv6
 * ios armv7
 * ios simulator
 * android armv6
-
 
 iOS
 ---
@@ -52,10 +54,18 @@ to the framework folder in XCode before building. Check that you
 choose "Create groups for any added folders"
 and deselect 'Copy items into destination group's folder (if needed)'.
 
-Check in the Build Settings -> Other Linker Flags that you have -fobjc-arc and -ObjC. If there is more than one "<ios linker-flags="" />", only the last one works.
+If you target ios < 6 (iOS > 5.0 is supported), toggle this framework to optional:
+- Security
+- Social
+- Accounts
+- AdSupport
 
-If you target ios < 6 (iOS > 5.0 is supported), toggle Security, Social, Accounts and AdSupport frameworks
-to optional.
+Check in the Build Settings -> Other Linker Flags that you have 
+```
+-fobjc-arc
+-ObjC
+```
+_If there is more than one "ios linker-flags" in the nmml files, only the last one works_
 
 Android
 -------
@@ -67,52 +77,61 @@ Add the LoginActivity to your AndroidManifest.xml
             android:label="::APP_TITLE::" />
 ````
 
-Copy the res folder from the extension in the templates/android/
-folder. Merge files if you have several native extensions and update your project.nmml:
+Copy the MainActivity.java to the java src folder with your package name.
 
-```xml
-<template path="templates/android/res" rename="res"/>
-
-```
-Copy the MainActivity.java to the java src folder with your package name
 Example with the template tag in the nmml file:
 
 ```xml
-<template path="Export/android/bin/MainActivityFacebook.java"
+<template path="../HypFacebook/templates/android/MainActivity.java"
    rename="src/my/package/name/MainActivity.java"/>
 
 ```
 
 Recompiling
 -----------
-
 For recompiling the native extensions just use the sh files contained in the project folder
 
 Usage
 -----
-
 ```haxe
-class TestFb {
-    function connectToFacebook( ) : Void {
-        var fb = new HypFacebook( "<your appid>" );
-        var session_is_valid = fb.connect( false ); // false to disallow login UI
+import nme.display.Sprite;
+import fr.hyperfiction.HypFacebook;
 
-        if( session_is_valid ) {
-            _doFacebookStuff( );
-        } else {
-            fb.addEventListener( HypFacebookEvent.OPENED, _onFbOpened );
-            fb.connect( true ); // true to disallow login UI
+class Main extends Sprite {
+	
+	var fb  : HypFacebook;
+	
+	public function new () {
+		super ();
+		connectToFacebook( );
+	}
+	
+	function connectToFacebook( ) : Void {
+        	fb = new HypFacebook( "your_app_id" );
+        	var session_is_valid = fb.connect( false ); // false to disallow login UI
+
+	        if( session_is_valid ) {
+	            _doFacebookStuff( );
+	        } else {
+	            fb.addEventListener( HypFacebookEvent.OPENED, _onFbOpened );
+	            fb.connect( true ); // true to allow login UI
+	        }
+    	}
+
+	function _onFbOpened( _ ) {
+        	fb.removeEventListener( HypFacebookEvent.OPENED, _onFbOpened );
+        	_doFacebookStuff( );
         }
 
-        function _onFbOpened( _ ) {
-            fb.removeEventListener( HypFacebookEvent.OPENED, _onFbOpened );
-            _doFacebookStuff( );
+	function _doFacebookStuff( ) {
+        	fb.addEventListener( HypFacebookRequestEvent.GRAPH_REQUEST_RESULTS, _onGraphResults );
+        	fb.call( GRAPH_REQUEST("/me") );
         }
 
-        function _doFacebookStuff( ) {
-            fb.call( GRAPH_REQUEST("/me") );
-        }
-    }
+	function _onGraphResults( event : HypFacebookRequestEvent ) : Void {
+		trace( 'sResult:'+event.sResult );
+	}
+	
 }
 ```
 The allowUI parameter of the connect function allow to present the login page if there is no cached/active token. You should call connect( false ) first to check if there is an active token. If not, then present a login button to the user that call connect( true ).
@@ -166,14 +185,18 @@ When you make a graph request, you get the raw String result from Facebook in a 
 ```
 Quick reference
 ---------------
-
-
 ```haxe
 class TestFb {
 
     // Open a session with additional READ permissions
     function openWithRead( ) : Void {
         fb.connectForRead( true, ["user_about_me"] );
+    }
+
+    // USE ONLY IF YOU KNOW WHAT YOU ARE DOING: see [this](http://stackoverflow.com/questions/15840893/facebook-android-sdk-session-openforpublish-not-creating-a-new-session)
+    // Open a session with additional PUBLISH permissions
+    function openWithPublish( ) : Void {
+        fb.connectForPublish( true, ["publish_actions"] );
     }
 
     // Present a request dialog
@@ -200,6 +223,11 @@ class TestFb {
         var h = new Hash<String>( );
         h.set( "score", "42" );
         fb.call( GRAPH_REQUEST("/<fb user id>/scores", h ,POST) );
+    }
+
+    // Close the Facebook session
+    function closeSession( ) : Void {
+        fb.logout( );
     }
 
 }
