@@ -92,7 +92,12 @@ import nme.events.EventDispatcher;
 		}
 
 		public function connectForPublish( allowUI : Bool, permissions : Array<String> ) : Bool {
-			trace("connect for publish");
+			trace("************************************************************");
+			trace("************************************************************");
+			trace("* connect for publish                                      *");
+			trace("* DO NOT USE: http://stackoverflow.com/questions/15840893/facebook-android-sdk-session-openforpublish-not-creating-a-new-session" );
+			trace("* use openForRead, then requestNew_publish_permissions     *");
+			trace("************************************************************");
 
 			var bSessionValid = false;
 
