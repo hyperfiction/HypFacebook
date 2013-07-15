@@ -11,8 +11,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
  */
 package fr.hyperfiction;
 
-import nme.events.Event;
-import nme.events.EventDispatcher;
+import flash.events.Event;
+import flash.events.EventDispatcher;
 
 /**
  * ...
@@ -417,7 +417,7 @@ import nme.events.EventDispatcher;
 		* @public
 		* @return	void
 		*/
-		@CPP("HypFacebook")
+		@CPP("hypfacebook")
 		public function HypFB_set_event_callback( fCallBack : Dynamic) : Void {
 
 		}
@@ -432,17 +432,17 @@ import nme.events.EventDispatcher;
 		* @public
 		* @return	void
 		*/
-		@CPP("HypFacebook")
+		@CPP("hypfacebook")
 		public function CPP_FB_Connect( sAppID : String, allowUI : Bool ) : Bool {
 
 		}
 
-		@CPP("HypFacebook")
+		@CPP("hypfacebook")
 		public function CPP_FB_ConnectFor_publish( sAppID : String, allowUI : Bool, permissions : String ) : Bool {
 
 		}
 
-		@CPP("HypFacebook")
+		@CPP("hypfacebook")
 		public function CPP_FB_ConnectFor_read( sAppID : String, allowUI : Bool, permissions : String ) : Bool {
 
 		}
@@ -453,7 +453,7 @@ import nme.events.EventDispatcher;
 		* @public
 		* @return	void
 		*/
-		@CPP("HypFacebook")
+		@CPP("hypfacebook")
 		public function CPP_FB_Disconnect( ) : Void {
 
 		}
@@ -464,7 +464,7 @@ import nme.events.EventDispatcher;
 		* @public
 		* @return	void
 		*/
-		@CPP("HypFacebook")
+		@CPP("hypfacebook")
 		public function CPP_FB_request( sGraphRequest : String, sParamsName : String, sParamsValues : String, sHTTPMethod : String ) : Void {
 
 		}
@@ -475,7 +475,7 @@ import nme.events.EventDispatcher;
 		* @public
 		* @return	void
 		*/
-		@CPP("HypFacebook")
+		@CPP("hypfacebook")
 		public function CPP_FB_dialog( sAction : String , sParamsName : String , sParamsValues : String ) : Void {
 
 		}
@@ -486,7 +486,7 @@ import nme.events.EventDispatcher;
 		* @public
 		* @return	void
 		*/
-		@CPP("HypFacebook")
+		@CPP("hypfacebook")
 		public function CPP_FB_requestNew_publish_perm( sPerms : String ) : Void {
 
 		}
@@ -497,7 +497,7 @@ import nme.events.EventDispatcher;
 		* @public
 		* @return	void
 		*/
-		@CPP("HypFacebook")
+		@CPP("hypfacebook")
 		public function CPP_FB_requestNew_read_perm( sPerms : String ) : Void {
 
 		}
@@ -508,7 +508,7 @@ import nme.events.EventDispatcher;
 		* @public
 		* @return	void
 		*/
-		@CPP("HypFacebook")
+		@CPP("hypfacebook")
 		public function CPP_FB_get_permissions( ) : String {
 
 		}

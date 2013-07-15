@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+
+	<haxelib name="inthebox-macros" />
+	<ndll name="hypfacebook" if="android" />
+
+	<java path="project/android" if="android"/>
+	<echo value='|----------------------------------------------------------------------------|' if="android"/>
+	<echo value='|                             /!\ [HypFacebook] /!\                          |' if="android"/>
+	<echo value='|----------------------------------------------------------------------------|' if="android"/>
+	<echo value='| Add the LoginActivity to your AndroidManifest.xml                          |' if="android"/>
+	<echo value="|----------------------------------------------------------------------------|" if="android"/>
+	<echo value='| Copy the MainActivity.java to the java src folder with your package name.  |' if="android"/>
+	<echo value='| Merge if needed with other extensions.                                     |' if="android"/>
+	<echo value='| Example with the template tag in the nmml file :                           |' if="android"/>
+	<echo value='| <template path="Export/android/bin/MainActivityFacebook.java"              |' if="android"/>
+	<echo value='|    rename="src/my/package/name/MainActivity.java"/>                        |' if="android"/>
+	<echo value="|----------------------------------------------------------------------------|" if="android"/>
+
+	<template path="/templates/android/MainActivity.java" rename="MainActivityFacebook.java" if="android"/>
+	<template path="/templates/android/libs/android-support-v4.jar" rename="libs/android-support-v4.jar" if="android"/>
+	<template path="/templates/android/res" rename="res" if="android"/>
+
+	<templatePath name="templates" />
+
+
+	<!-- ios -->
+
+		<ndll name="hypfacebook" if="ios"/>
+
+		<section if="ios">
+			<echo value='|----------------------------------------------------------------------------|' if="ios"/>
+			<echo value='|                             /!\ [HypFacebook] /!\                          |' if="ios"/>
+			<echo value='|----------------------------------------------------------------------------|' if="ios"/>
+			<echo value='| Add a FacebookDisplayName key in your app-Info.plist with your app name:   |' if="ios"/>
+			<echo value='|   <key>FacebookDisplayName</key>                                           |' if="ios"/>
+			<echo value='|   <string>_________</string>                                               |' if="ios"/>
+			<echo value='| Add a CFBundleURLTypes key in your app-Info.plist with "fb<appid>":        |' if="ios"/>
+			<echo value='|   <key>CFBundleURLTypes</key>                                              |' if="ios"/>
+			<echo value='|     <array>                                                                |' if="ios"/>
+			<echo value='|         <dict>                                                             |' if="ios"/>
+			<echo value='|             <key>CFBundleURLSchemes</key>                                  |' if="ios"/>
+			<echo value='|             <array>                                                        |' if="ios"/>
+			<echo value='|                 <string>fb_______________</string>                         |' if="ios"/>
+			<echo value='|             </array>                                                       |' if="ios"/>
+			<echo value='|         </dict>                                                            |' if="ios"/>
+			<echo value='|     </array>                                                               |' if="ios"/>
+			<echo value="|----------------------------------------------------------------------------|" if="ios"/>
+			<echo value='| Also mind to add the FacebookSDK.framework and the bundles,                |' if="ios"/>
+			<echo value='| to the framework folder in XCode before building. Check that you           |' if="ios"/>
+			<echo value='| choose "Create groups for any added folders"                               |' if="ios"/>
+			<echo value="| and deselect 'Copy items into destination group's folder (if needed)'.     |" if="ios"/>
+			<echo value="|----------------------------------------------------------------------------|" if="ios"/>
+			<echo value="| Check Other Linker Flags that you have -fobjc-arc and -ObjC                |" if="ios"/>
+			<echo value="|----------------------------------------------------------------------------|" if="ios"/>
+			<echo value="| If you target ios < 6, toggle Security, Social, Accounts and AdSupport     |" if="ios"/>
+			<echo value="| to optional.                                                               |" if="ios"/>
+			<echo value="|----------------------------------------------------------------------------|" if="ios"/>
+
+			<ios linker-flags="-fobjc-arc -ObjC" />
+
+			<dependency name="Security.framework" />
+			<dependency name="Social.framework" />
+			<dependency name="Accounts.framework" />
+			<dependency name="AdSupport.framework"/>
+			<dependency name="sqlite3"/>
+		</section>
+
+</project>

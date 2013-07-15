@@ -1,63 +1,49 @@
 <xml>
 
-  <set name="GCC_THIN_ARCHIVE" value="1" if="iphone"/>
+	<include name="${HXCPP}/build-tool/BuildCommon.xml"/>
 
-  <include name="${HXCPP}/build-tool/BuildCommon.xml"/>
+	<set name="mobile" value="1" if="iphone"/>
+	<set name="mobile" value="1" if="android"/>
+	<set name="mobile" value="1" if="blackberry"/>
+	<set name="mobile" value="1" if="webos"/>
 
-  <set name="mobile" value="1" if="iphone"/>
-  <set name="mobile" value="1" if="android"/>
-  <set name="mobile" value="1" if="webos"/>
+	<files id="common">
+	    <compilerflag value="-Iinclude"/>
+	    <file name="common/ExternalInterface.cpp"/>
+	</files>
 
-  <set name="SLIBEXT" value=".lib" if="windows"/>
-  <set name="SLIBEXT" value=".a" unless="windows"/>
-  <set name="SLIBEXT" value=".so" if="webos"/>
+	<files id="iphone">
+	    <compilerflag value="-IiPhone/include"/>
+	    <compilerflag value="-Iinclude"/>
+	    <file name="iPhone/HypFacebook.mm"/>
+	</files>
 
-  <set name="tool" value="exe" unless="iphone"/>
-  <set name="tool" value="static" if="iphone"/>
+	<set name="name_prefix" value="lib" if="iphone"/>
+	<set name="IOS_ARCH" value="-v7" if="HXCPP_ARMV7"/>
+	<set name="name_extra" value=".iphoneos${IOS_ARCH}" if="iphoneos"/>
+	<set name="name_extra" value=".iphonesim" if="iphonesim"/>
+	<set name="name_extra" value="-x86" if="simulator" unless="iphonesim" />
+	<set name="tool" value="exe" unless="iphone"/>
+	<set name="tool" value="static_link" if="iphone"/>
+	<set name="ndll-tool" value="dll" unless="iphone"/>
+	<set name="ndll-tool" value="static_link" if="iphone"/>
+	<set name="SLIBEXT" value=".lib" if="windows"/>
+	<set name="SLIBEXT" value=".a" unless="windows"/>
+	<set name="SLIBEXT" value=".so" if="webos"/>
 
-  <set name="IOS_ARCH" value="-v7" if="HXCPP_ARMV7"/>
+	<target id="NDLL" output="${name_prefix}hypfacebook${debug_extra}${name_extra}" tool="linker" toolid="${ndll-tool}">
 
-  <set name="ndll-tool" value="dll" unless="iphone"/>
-  <set name="ndll-tool" value="static_link" if="iphone"/>
-  <set name="name_extra" value=".iphoneos${IOS_ARCH}" if="iphoneos"/>
-  <set name="name_extra" value=".iphonesim" if="iphonesim"/>
+		<outdir name="../ndll/${BINDIR}"/>
+		<ext value=".ndll" unless="mobile"/>
+		<files id="common"/>
+		<files id="iphone" if="iphone"/>
 
-  <set name="no_thirdparty_extras" value="1" if="iphone"/>
+	</target>
 
-  <set name="sdl_static" value="1" unless="mobile"/>
-  <unset name="sdl_static" if="dynamic_sdl"/>
-  <set name="no_thirdparty_extras" value="1" if="dynamic_sdl"/>
+	<target id="default">
 
-  <set name="name_prefix" value="lib" if="iphone" />
-  <files id="common">
-      <compilerflag value="-Iinclude"/>
-      <file name="common/ExternalInterface.cpp"/>
-  </files>
+		<target id="NDLL"/>
 
-  <files id="android">
-      <compilerflag value="-Iinclude"/>
-      <depend name="${HXCPP}/include/hx/Macros.h"/>
-      <depend name="${HXCPP}/include/hx/CFFI.h"/>
-  </files>
-
-  <files id="iphone">
-      <depend name="${HXCPP}/include/hx/Macros.h"/>
-      <depend name="${HXCPP}/include/hx/CFFI.h"/>
-      <compilerflag value="-IiPhone/include"/>
-      <compilerflag value="-Iinclude"/>
-      <file name="iPhone/HypFacebook.mm"/>
-  </files>
-
-  <target id="NDLL" output="${name_prefix}HypFacebook${name_extra}" tool="linker" toolid="${ndll-tool}">
-      <outdir name="../ndll/${BINDIR}" />
-      <ext value=".ndll" unless="mobile"/>
-      <files id="common"/>
-      <files id="iphone" if="iphone"/>
-      <files id="android" if="android"/>
-  </target>
-
-  <target id="default">
-    <target id="NDLL"/>
-  </target>
+	</target>
 
 </xml>

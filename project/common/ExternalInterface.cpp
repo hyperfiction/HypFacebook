@@ -50,7 +50,10 @@ AutoGCRoot *eval_onEvent = 0;
 
 extern "C"{
 
-	int HypFacebook_register_prims(){
+	void hypfacebook_main () {}
+	DEFINE_ENTRY_POINT (hypfacebook_main);
+
+	int hypfacebook_register_prims(){
 		printf("HypFacebook : register_prims()\n");
 		return 0;
 	}

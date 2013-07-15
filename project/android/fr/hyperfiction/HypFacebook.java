@@ -59,7 +59,7 @@ public class HypFacebook {
 
 	static public native void onFBEvent( String jsEvName , String javaArg1 , String javaArg2 );
 	static{
-		System.loadLibrary( "HypFacebook" );
+		System.loadLibrary( "hypfacebook" );
 	}
 
 	private String _sAppID;
@@ -430,10 +430,16 @@ public class HypFacebook {
 					onFBEventWrapper( DIALOG_ERROR , error.toString( ) , "" );
 				}else{
 					final String postId = values.getString("post_id");
-					if ( postId != null )
+					if ( postId != null ) {
 						onFBEventWrapper( DIALOG_SENT , postId , "" );
-					else
-						onFBEventWrapper( DIALOG_CANCELED , "" , "" );
+					} else {
+						final String requestId = values.getString("request");
+						if ( requestId != null ) {
+							onFBEventWrapper( DIALOG_SENT , requestId , "" );
+						} else {
+							onFBEventWrapper( DIALOG_CANCELED , "" , "" );
+						}
+					}
 				}
 			}
 		};
