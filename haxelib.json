@@ -8,7 +8,5 @@
   "releasenote": "Haxe3 and OpenFl compatibility",
   "contributors": ["shoe[box]","louisbl"],
   "dependencies": {
-    "inthebox-macros": "",
-    "openfl": ""
   }
 }
