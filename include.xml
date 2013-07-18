@@ -18,9 +18,6 @@
 	<echo value="|----------------------------------------------------------------------------|" if="android"/>
 
 	<template path="/templates/android/MainActivity.java" rename="MainActivityFacebook.java" if="android"/>
-	<template path="/templates/android/libs/android-support-v4.jar" rename="libs/android-support-v4.jar" if="android"/>
-	<template path="/templates/android/res" rename="res" if="android"/>
-
 	<templatePath name="templates" />
 
 
