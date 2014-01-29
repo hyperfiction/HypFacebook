@@ -34,7 +34,7 @@ import android.view.ViewGroup;
 import java.util.List;
 import java.util.Arrays;
 
-import org.haxe.nme.GameActivity;
+import org.haxe.lime.GameActivity;
 
 /**
  * ...
