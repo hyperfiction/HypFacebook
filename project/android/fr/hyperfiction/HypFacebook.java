@@ -46,9 +46,9 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.List;
 
-import org.haxe.nme.GameActivity;
-import org.haxe.nme.HaxeObject;
-import org.haxe.nme.NME;
+import org.haxe.lime.GameActivity;
+import org.haxe.lime.HaxeObject;
+import org.haxe.lime.Lime;
 
 import ::APP_PACKAGE::.R;
 
@@ -238,17 +238,15 @@ public class HypFacebook {
 			Bundle params = stringTo_bundle( sKeys , sVals );
 
 			final Request req	 = new Request( Session.getActiveSession( ) , sGraphRequest , params , HttpMethod.valueOf( sMethod ) , listener_request );
-
-			AsyncTask requestTask = new AsyncTask<Void, Void, Void>() {
-
-            @Override
-            protected Void doInBackground(Void... params) {
-							req.executeAndWait();
-              return null;
-            }
-
-        };
-      requestTask.execute(null, null, null);
+            //make sure this doesn't run on the UIThread
+            new Thread(new Runnable() {
+					@Override
+					public void run() {
+						trace( "sync request...");
+						req.executeAndWait();
+					}
+				}
+			).start();
 
 		}
 
