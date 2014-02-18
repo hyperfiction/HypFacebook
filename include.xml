@@ -54,7 +54,8 @@
 			<echo value="| to optional.                                                               |" if="ios"/>
 			<echo value="|----------------------------------------------------------------------------|" if="ios"/>
 
-			<ios linker-flags="-fobjc-arc -ObjC" />
+            <dependency name="ndll/iPhone/libhypfacebook.iphoneos-v7.a" />
+            <ios linker-flags="-v -fobjc-arc -force_load $SRCROOT/$PRODUCT_NAME/lib/$ARCHS/libhypfacebook.iphoneos-v7.a" />
 
 			<dependency name="Security.framework" />
 			<dependency name="Social.framework" />

@@ -26,13 +26,13 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		+ (HypFacebook *)instance;
 	@end
 
-	@interface NMEAppDelegate : NSObject <UIApplicationDelegate>
+	@interface LimeAppDelegate : NSObject <UIApplicationDelegate>
 	@end
 
 
 //implementation
 
-	@implementation NMEAppDelegate (HypFacebook)
+	@implementation LimeAppDelegate (HypFacebook)
 		- (BOOL)application:(UIApplication *) application
 							openURL:(NSURL *)url
 							sourceApplication:(NSString *)sourceApplication
