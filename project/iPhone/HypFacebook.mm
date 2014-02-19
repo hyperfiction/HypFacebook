@@ -254,10 +254,16 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 								[[error localizedDescription] UTF8String]
 							);
 					} else {
+                        NSError *error;
+                        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:result
+                                                                           options:NSJSONWritingPrettyPrinted
+                                                                             error:&error];
+                        NSString* aStr;
+                        aStr = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
 						hypfb_dispatch_event(
 								"GRAPH_REQUEST_RESULTS" ,
 								[(NSString*) NSGraphRequest UTF8String] ,
-								[[NSString stringWithFormat:@"%@", result] UTF8String]
+								[(NSString*) aStr UTF8String]
 							);
 					}
 				}
@@ -342,6 +348,7 @@ namespace hypfacebook{
 		NSLog(@"connect %@",NSAppID);
 		BOOL ui = allow_ui ? YES : NO;
 		return [[HypFacebook instance] connect:NSAppID withUI:ui];
+
 	}
 
 	bool connectFor_read( const char *sAppID, bool allow_ui, const char *sPerms ) {
