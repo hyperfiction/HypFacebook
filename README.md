@@ -225,6 +225,16 @@ class TestFb {
         fb.call( GRAPH_REQUEST("/<fb user id>/scores", h ,POST) );
     }
 
+    // Request additional read permissions
+    function requestReadPermissions( ) : Void {
+        fb.requestNew_read_permissions( ["user_about_me"] );
+    }
+
+    // Request additional publish permissions
+    function requestPublishPermissions( ) : Void {
+        fb.requestNew_publish_permissions( ["publish_actions"] );
+    }
+
     // Close the Facebook session
     function closeSession( ) : Void {
         fb.logout( );
